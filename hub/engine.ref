@@ -1,0 +1,5 @@
+# Pinned upstream HyperFrames engine. engine/ is not tracked in git: update.mjs --first-time
+# clones this commit into engine/, then reapplies the hack (apply-hack.mjs) and builds.
+# A normal update.mjs run rewrites `commit` after a successful pull + hack + build.
+repo=https://github.com/heygen-com/hyperframes.git
+commit=8c00ebad80c634f607e3a5283f8a0aa73e35f1dd

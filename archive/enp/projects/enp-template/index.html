@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--
+  EnP Template Base — HyperFrames
+  ─────────────────────────────────────────────────────────────────────
+  Ponto de partida para composições EnP.
+
+  Modo padrão: institutional_light (Frost + Deep Slate + Button Blue)
+  Para mudar: troque data-enp-theme no <html>
+    • sem atributo              → institutional_light
+    • data-enp-theme="dark"     → institutional_dark
+    • data-enp-theme="services" → services
+  ─────────────────────────────────────────────────────────────────────
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+
+    <link rel="stylesheet" href="shared/fonts.css">
+    <link rel="stylesheet" href="shared/enp-tokens.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+    <style>
+      *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        font-family: var(--enp-font);
+        background: var(--enp-bg);
+        color: var(--enp-text);
+      }
+
+      /* Em composições HF: NUNCA flex/grid no container de clips.
+         class="clip" usa display:none — flex recalcula e sobrepõe tudo. */
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+      }
+
+      /* Margem esquerda padrão */
+      .clip {
+        position: absolute;
+        left: 160px;
+      }
+
+      /*
+        Distribuição vertical (canvas 1080px, grupo centralizado):
+        Altura total do grupo: ~584px → margem top/bottom: 248px
+
+          logo        248px   (72px h)
+          accent-line 368px   (3px h)
+          eyebrow     396px   (24px × 1.2 ≈ 29px h)
+          title       440px   (110px × 1.05 ≈ 116px h)
+          subtitle    596px   (40px × 1.5 × 2 linhas ≈ 120px h)
+          cta         764px   (~68px h → bottom 832px)
+          margem inf  1080 - 832 = 248px ✓
+      */
+
+      #logo {
+        top: 248px;
+        width: 72px;
+        height: auto;
+      }
+
+      #accent-line {
+        top: 368px;
+        width: 80px;
+        height: 3px;
+        background: var(--enp-lime);
+        border-radius: var(--enp-radius-sm);
+      }
+
+      #eyebrow {
+        top: 396px;
+        font-size: var(--enp-v-eyebrow);
+        font-weight: 600;
+        letter-spacing: var(--enp-v-track-eyebrow);
+        text-transform: uppercase;
+        color: var(--enp-cta);
+      }
+
+      #title {
+        top: 440px;
+        font-size: var(--enp-v-h1);
+        font-weight: 600;
+        letter-spacing: var(--enp-v-track-h1);
+        line-height: var(--enp-leading-h1);
+        color: var(--enp-text);
+        width: 1400px;
+      }
+
+      #subtitle {
+        top: 596px;
+        font-size: var(--enp-v-lead);
+        font-weight: 400;
+        line-height: var(--enp-leading-body);
+        color: var(--enp-gray-60);
+        width: 880px;
+      }
+
+      #cta {
+        top: 764px;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--enp-space-4);
+        background: var(--enp-cta);
+        color: #fff;
+        font-size: var(--enp-v-body);
+        font-weight: 600;
+        padding: 20px 48px;
+        border-radius: var(--enp-radius-pill);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div data-hf-id="hf-root" id="root" data-composition-id="enp-main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+
+      <img data-hf-id="hf-logo" id="logo" class="clip" data-start="0" data-duration="8" data-track-index="1" src="shared/assets/simbolo-azul-ecommerce-na-pratica.svg" alt="EnP">
+
+      
+
+      <span data-hf-id="hf-eyebrow" id="eyebrow" class="clip" data-start="0.3" data-duration="7.7" data-track-index="3">Ecommerce na Prática</span>
+
+      <h1 data-hf-id="hf-title" id="title" class="clip" data-start="0.5" data-duration="7.5" data-track-index="4">Título da composição</h1>
+
+      <p data-hf-id="hf-subtitle" id="subtitle" class="clip" data-start="1.0" data-duration="7.0" data-track-index="5">Descrição ou chamada de apoio — substitua este texto.</p>
+
+      <div data-hf-id="hf-cta" id="cta" class="clip" data-start="1.91" data-duration="6.09" data-track-index="6">Saiba mais →</div>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set("#eyebrow", { x: 0, y: 0, data: "hf-hold" }, 0);
+
+      tl.from("#logo",        { opacity: 0, duration: 0.4, ease: "power2.out" }, 0);
+      tl.from("#accent-line", { scaleX: 0, transformOrigin: "left center", duration: 0.5, ease: "power3.out" }, 0.1);
+      tl.from("#title",       { opacity: 0, y: 32, duration: 0.7, ease: "power3.out" }, 0.5);
+      tl.from("#subtitle",    { opacity: 0, y: 20, duration: 0.6, ease: "power2.out" }, 1.0);
+      tl.from("#cta",         { opacity: 0, scale: 0.94, duration: 0.375, ease: "power2.out" }, 1.91);
+
+      tl.from("#eyebrow", { opacity: 0, duration: 0.4, ease: "power2.out" }, 0.3);
+
+      tl.to("#eyebrow", { keyframes: {
+            "0%": { x: 0, y: 0 },
+            "44.82%": { x: 0, y: 0 },
+            "100%": { x: 0, y: -25 }
+      }, duration: 0.893 }, 0.3);
+
+      window.__timelines["enp-main"] = tl;
+    </script>
+  </body>
+</html>

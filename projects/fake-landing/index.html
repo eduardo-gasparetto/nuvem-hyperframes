@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1920px; height: 1080px; overflow: hidden;
+        background: radial-gradient(circle at 30% 30%, #0ea5e9 0%, #0b1120 70%);
+        font-family: "Inter", sans-serif;
+      }
+      #kicker {
+        position: absolute; top: 38%; left: 50%; transform: translate(-50%, -50%);
+        color: #7dd3fc; font-size: 36px; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase;
+      }
+      #title {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        color: #fff; font-size: 130px; font-weight: 800; letter-spacing: -0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-gxr6" id="root" data-composition-id="main" data-start="0" data-duration="8" data-width="1920" data-height="1080">
+      <p data-hf-id="hf-x09h" id="kicker" class="clip" data-start="0" data-duration="8" data-track-index="1">Fake Project</p>
+      <h1 data-hf-id="hf-bvcs" id="title" class="clip" data-start="0.3" data-duration="7.7" data-track-index="2">LANDING</h1>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.from("#kicker", { opacity: 0, y: -20, duration: 0.8, ease: "power2.out" }, 0);
+      tl.from("#title", { opacity: 0, y: 50, duration: 1, ease: "power3.out" }, 0.3);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

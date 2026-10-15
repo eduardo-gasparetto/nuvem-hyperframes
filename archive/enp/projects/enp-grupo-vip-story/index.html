@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  EnP — Grupo VIP (Story 3) — HyperFrames
+  ─────────────────────────────────────────────────────────────────────
+  Recriação 1:1 do frame "Story 3" (node 142:256) do Figma
+  "[ENP] Performance - Social". Canvas: 1080×1920 (Instagram Story).
+  Todas as posições, cores e tipografia vêm direto do Figma — nada estimado.
+  ─────────────────────────────────────────────────────────────────────
+-->
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+
+    <link rel="stylesheet" href="shared/fonts.css" />
+    <link rel="stylesheet" href="shared/enp-tokens.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        font-family: var(--enp-font);
+      }
+
+      #root {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 1080 1920' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><rect x='0' y='0' height='100%25' width='100%25' fill='url(%23grad)' opacity='1'/><defs><radialGradient id='grad' gradientUnits='userSpaceOnUse' cx='0' cy='0' r='10' gradientTransform='matrix(175.95 206.22 -29.542 251.77 -241.87 -234.67)'><stop stop-color='rgba(0,80,195,1)' offset='0'/><stop stop-color='rgba(0,41,143,1)' offset='0.29808'/><stop stop-color='rgba(4,23,115,1)' offset='0.47596'/><stop stop-color='rgba(8,5,88,1)' offset='0.65385'/><stop stop-color='rgba(4,8,61,1)' offset='0.82692'/><stop stop-color='rgba(1,11,35,1)' offset='1'/></radialGradient></defs></svg>");
+      }
+
+      /* ─── Foto e overlay agora são sub-composições (ver compositions/) ─── */
+      #bg-photo,
+      #bg-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      /* ─── Logo EnP ─── */
+      #logo {
+        position: absolute;
+        left: 81px;
+        top: 483px;
+        width: 278.512px;
+        height: 80px;
+      }
+
+      /* ─── Textos ─── */
+      #eyebrow {
+        position: absolute;
+        left: 81px;
+        top: 651px;
+        width: 225px;
+        font-size: 27.5px;
+        font-weight: 600;
+        letter-spacing: 8.24px;
+        text-transform: uppercase;
+        color: #fff;
+        white-space: nowrap;
+      }
+      #title {
+        position: absolute;
+        left: 76px;
+        top: 696px;
+        width: 671px;
+        font-size: 91px;
+        font-weight: 600;
+        line-height: 1.234;
+        letter-spacing: -0.2275px;
+        color: #fff;
+      }
+      #subtitle {
+        position: absolute;
+        left: 81px;
+        top: 823px;
+        width: 671px;
+        font-size: 46.8px;
+        font-weight: 600;
+        line-height: 1.234;
+        letter-spacing: -0.117px;
+        color: #fff;
+      }
+      #paragraph {
+        position: absolute;
+        left: 81px;
+        top: 989px;
+        width: 584px;
+        font-size: 36.8px;
+        font-weight: 400;
+        line-height: 1.264;
+        letter-spacing: -0.092px;
+        color: #fff;
+      }
+
+      /* ─── Pill com a data ─── */
+      #pill {
+        position: absolute;
+        left: 79px;
+        top: 1304px;
+        width: 557px;
+        height: 100px;
+        border-radius: var(--enp-radius-pill, 100px);
+        background: #0050c3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #pill-text {
+        font-size: 46.8px;
+        font-weight: 600;
+        letter-spacing: -0.117px;
+        line-height: 1.234;
+        color: #fff;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-2s7i"
+      id="root"
+      data-composition-id="enp-grupo-vip-story"
+      data-start="0"
+      data-duration="6"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div
+        id="bg-photo"
+        class="clip"
+        data-composition-id="enp-grupo-vip-story-bg-photo"
+        data-composition-src="compositions/bg-photo.html"
+        data-start="0"
+        data-duration="6"
+        data-track-index="0"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <div
+        id="bg-overlay"
+        class="clip"
+        data-composition-id="enp-grupo-vip-story-bg-overlay"
+        data-composition-src="compositions/bg-overlay.html"
+        data-start="0"
+        data-duration="6"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <img data-hf-id="hf-kc24" id="logo" class="clip" data-start="0" data-duration="6" data-track-index="2" src="shared/assets/logo-enp.svg" alt="ecommerce na prática" />
+
+      <p data-hf-id="hf-pvng" id="eyebrow" class="clip" data-start="0" data-duration="6" data-track-index="3" data-layout-allow-occlusion>Workshop</p>
+
+      <h1 data-hf-id="hf-2pgc" id="title" class="clip" data-start="0" data-duration="6" data-track-index="4">Grupo VIP</h1>
+
+      <p data-hf-id="hf-hvyt" id="subtitle" class="clip" data-start="0" data-duration="6" data-track-index="5">Como transformar clientes em compradores recorrentes</p>
+
+      <p data-hf-id="hf-ebnb" id="paragraph" class="clip" data-start="0" data-duration="6" data-track-index="6">Juliana Marques, da loja Siiis Kids, mostra na prática as melhores estratégias para usar em grupos no WhatsApp e fazer clientes voltarem a comprar.</p>
+
+      <div data-hf-id="hf-w0yw" id="pill" class="clip" data-start="0" data-duration="6" data-track-index="7">
+        <span data-hf-id="hf-7bir" id="pill-text">22 de Outubro às 15h</span>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // Foto: fade-in rápido logo no início.
+      tl.fromTo("#bg-photo", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+
+      // Conteúdo entra em cascata — +200ms de atraso entre cada entrada.
+      tl.fromTo("#logo", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.5);
+      tl.fromTo("#eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.15);
+      tl.fromTo("#title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.65);
+      tl.fromTo("#subtitle", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.35);
+      tl.fromTo("#paragraph", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 2.95);
+      tl.fromTo("#pill", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 3.7);
+
+      window.__timelines["enp-grupo-vip-story"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "historyId": "05e2e4cd-8965-4b1a-9be1-b0f57524fd16",
+  "currentRevision": "8e28f944-7ec0-4c0b-b591-a31e53f49b2e",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/1d/1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "CLAUDE.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/1d/1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/53/53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "7030a7f05a1ebeb31dd3b68768ed744022ae5fc68459bb657952260d99835a87",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/70/7030a7f05a1ebeb31dd3b68768ed744022ae5fc68459bb657952260d99835a87"
+    },
+    "meta.json": {
+      "hash": "1c5d01466f6db05cfefecd64ca72ee737f8c758cc410579e6d32097d5b6e9302",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/1c/1c5d01466f6db05cfefecd64ca72ee737f8c758cc410579e6d32097d5b6e9302"
+    },
+    "package.json": {
+      "hash": "415e59898fb482c4a3c5d4ed7821057adc45e2c8bd91a97648e683c459ff9b5f",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/41/415e59898fb482c4a3c5d4ed7821057adc45e2c8bd91a97648e683c459ff9b5f"
+    },
+    "shared/fonts/plus-jakarta-sans-cyrillic-ext.woff2": {
+      "hash": "a16f29d7d2a21a4f9b3249a82eb2725ed5bdb91500dfb5c4758977de27477f20",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/a1/a16f29d7d2a21a4f9b3249a82eb2725ed5bdb91500dfb5c4758977de27477f20"
+    },
+    "shared/fonts/plus-jakarta-sans-latin-ext.woff2": {
+      "hash": "0303e02b53b0298fb26a0193941a2e8754f0f9a9fce50d90b178d8da3424873f",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/03/0303e02b53b0298fb26a0193941a2e8754f0f9a9fce50d90b178d8da3424873f"
+    },
+    "shared/fonts/plus-jakarta-sans-latin.woff2": {
+      "hash": "cd8db90cd950e26bc8761f65d323588bd5cd112d326d6d322bc7c8ea86771215",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/cd/cd8db90cd950e26bc8761f65d323588bd5cd112d326d6d322bc7c8ea86771215"
+    },
+    "shared/fonts/plus-jakarta-sans-vietnamese.woff2": {
+      "hash": "5c913fc1b1f86f4b475e5df45a796aa480d1f7f0891ed6f1a5991d6d1be887c3",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/5c/5c913fc1b1f86f4b475e5df45a796aa480d1f7f0891ed6f1a5991d6d1be887c3"
+    },
+    "shared/fonts.css": {
+      "hash": "6a60a16950391e3a4b3e3cff6917f77c910381a8c7d6a2d82cd53e830f023fe2",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/6a/6a60a16950391e3a4b3e3cff6917f77c910381a8c7d6a2d82cd53e830f023fe2"
+    },
+    "shared/nuvem-tokens.css": {
+      "hash": "1f1c58f1aed6d7bc662acb0457a38b4d06bf116cd53e2a3e84d27d93ceaea675",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/1f/1f1c58f1aed6d7bc662acb0457a38b4d06bf116cd53e2a3e84d27d93ceaea675"
+    },
+    "shared/fonts/ivy-presto-display-light-italic.otf": {
+      "hash": "bda98d3086a2289c814de9d1c09a14c005762041fd2701bcae8e409cc7467b62",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/bd/bda98d3086a2289c814de9d1c09a14c005762041fd2701bcae8e409cc7467b62"
+    }
+  },
+  "revisions": {
+    "b1ef7ebc-e2ec-4efe-96a2-0ebe69c90777": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792011385723,
+      "endedAt": 1792011385740,
+      "files": {
+        "shared/fonts.css": {
+          "before": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/44/44601721de59ffb27f4428b9f400741e8975eff872a87baf911ae6a06514b153",
+          "after": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/6a/6a60a16950391e3a4b3e3cff6917f77c910381a8c7d6a2d82cd53e830f023fe2"
+        },
+        "shared/fonts/ivy-presto-display-light-italic.otf": {
+          "before": null,
+          "after": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/bd/bda98d3086a2289c814de9d1c09a14c005762041fd2701bcae8e409cc7467b62"
+        },
+        "shared/nuvem-tokens.css": {
+          "before": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/33/33361a5a611f8fa25dfd6ce288593ce07257f7b3e4a7e14a63ad7c76e6766fe6",
+          "after": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/63/635547617bdba74c3036e4d4931106a643e3b6a3beb37065e6fda1a7cc69e7e2"
+        }
+      }
+    },
+    "8e28f944-7ec0-4c0b-b591-a31e53f49b2e": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792075226837,
+      "endedAt": 1792075226841,
+      "files": {
+        "shared/nuvem-tokens.css": {
+          "before": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/63/635547617bdba74c3036e4d4931106a643e3b6a3beb37065e6fda1a7cc69e7e2",
+          "after": "/Users/eduardogasparetto/.cache/hyperframes/history/05e2e4cd-8965-4b1a-9be1-b0f57524fd16/blobs/1f/1f1c58f1aed6d7bc662acb0457a38b4d06bf116cd53e2a3e84d27d93ceaea675"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "8e28f944-7ec0-4c0b-b591-a31e53f49b2e",
+      "id": "f7bc6ca7-d19e-4833-92f6-57029dbce784"
+    },
+    "revisions": {
+      "b1ef7ebc-e2ec-4efe-96a2-0ebe69c90777": [],
+      "8e28f944-7ec0-4c0b-b591-a31e53f49b2e": [
+        {
+          "id": "f7bc6ca7-d19e-4833-92f6-57029dbce784",
+          "scope": "project",
+          "report": "/Users/eduardogasparetto/Claude Projects/nuvem-hyperframes/projects/nuvem-hyper-01/.hyperframes/artifacts/checks/f7bc6ca7-d19e-4833-92f6-57029dbce784.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792075235113,
+          "contentHash": "58acb72374e4bbb2754defbd31c793c00e78f8ab73afbd3b8b8a9acc015c1ac0",
+          "revision": "8e28f944-7ec0-4c0b-b591-a31e53f49b2e",
+          "inputFingerprint": "8051682065f5e64957b70c612dbb43eba8bec9dbcb6d69e37f9e69c1295e2f20",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  }
+}

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --frost: #f4f7fb;
+        --white: #ffffff;
+        --ink: #313642;
+        --muted: #5c6167;
+        --meta: #979ba1;
+        --line: #bdc0c6;
+        --accent: #1076dd;
+        --sky: #31b3f9;
+        --lime: #cdff07;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--frost);
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+          Arial, sans-serif;
+      }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        background: var(--frost);
+        overflow: hidden;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+      }
+
+      /* ---------- warm-up accent sweep ---------- */
+
+      .warm-bar {
+        position: absolute;
+        left: 50%;
+        top: 140px;
+        width: 260px;
+        height: 10px;
+        margin-left: -130px;
+        background: var(--accent);
+        border-radius: 6px;
+        opacity: 0;
+      }
+
+      /* ---------- shared card shell ---------- */
+
+      .card {
+        position: absolute;
+        left: 56px;
+        width: 968px;
+        background: var(--white);
+        border-radius: 48px;
+        box-shadow:
+          0 32px 80px -20px rgba(49, 54, 66, 0.22),
+          0 8px 24px rgba(49, 54, 66, 0.06);
+        display: flex;
+        flex-direction: column;
+        padding: 72px;
+        opacity: 0;
+      }
+
+      .icon-chip {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .icon-chip svg {
+        width: 44px;
+        height: 44px;
+      }
+
+      /* ---------- hook scene ---------- */
+
+      #card-hook {
+        top: 580px;
+        height: 760px;
+      }
+
+      .headline-stage {
+        position: relative;
+        flex: 1;
+        margin-top: 56px;
+      }
+
+      .scene-block {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 24px;
+        opacity: 0;
+      }
+
+      .line-small {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px 16px;
+      }
+
+      .line-small .word {
+        font-size: 52px;
+        font-weight: 400;
+        line-height: 1.2;
+        color: var(--muted);
+        display: inline-block;
+      }
+
+      .line-big {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+      }
+
+      .line-big .word {
+        font-size: 92px;
+        font-weight: 600;
+        line-height: 1.12;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+        display: inline-block;
+      }
+
+      .line-big .word--brand {
+        color: var(--accent);
+        position: relative;
+      }
+
+      .brand-underline {
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        width: 100%;
+        height: 7px;
+        background: var(--accent);
+        border-radius: 4px;
+        transform: scaleX(0);
+        transform-origin: 0% 50%;
+      }
+
+      .spark {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        right: 30px;
+        top: -54px;
+        color: var(--accent);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .spark svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      .confetti-chip {
+        position: absolute;
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .chip-1 {
+        left: 6%;
+        top: 14%;
+        width: 56px;
+        height: 56px;
+        background: var(--accent);
+      }
+
+      .chip-2 {
+        left: 78%;
+        top: 58%;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--sky);
+      }
+
+      .chip-3 {
+        left: 68%;
+        top: 8%;
+        width: 34px;
+        height: 34px;
+        background: var(--lime);
+      }
+
+      .progress {
+        display: flex;
+        gap: 16px;
+        flex-shrink: 0;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--line);
+      }
+
+      /* ---------- method panel scene ---------- */
+
+      #card-panel {
+        top: 550px;
+        height: 820px;
+      }
+
+      .panel-header {
+        font-size: 44px;
+        font-weight: 400;
+        color: var(--muted);
+        line-height: 1.25;
+        max-width: 760px;
+        opacity: 0;
+      }
+
+      .rows-stage {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 56px;
+        margin-top: 40px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        opacity: 0;
+      }
+
+      .row-icon {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: #eff1f4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .row-icon svg {
+        width: 36px;
+        height: 36px;
+        color: var(--accent);
+      }
+
+      .row-label {
+        flex: 1;
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--ink);
+        letter-spacing: -0.005em;
+      }
+
+      .row-check {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        opacity: 0;
+      }
+
+      .row-check svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* ---------- CTA scene ---------- */
+
+      #card-cta {
+        top: 550px;
+        height: 820px;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        text-align: center;
+      }
+
+      .cta-logo {
+        height: 56px;
+        opacity: 0;
+      }
+
+      .cta-headline {
+        font-size: 76px;
+        font-weight: 600;
+        line-height: 1.14;
+        letter-spacing: -0.015em;
+        color: var(--ink);
+        opacity: 0;
+      }
+
+      .cta-button-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .cta-glow {
+        position: absolute;
+        width: 460px;
+        height: 140px;
+        border-radius: 100px;
+        background: var(--sky);
+        opacity: 0;
+        filter: blur(2px);
+      }
+
+      .cta-button {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: var(--accent);
+        color: var(--white);
+        font-size: 40px;
+        font-weight: 600;
+        padding: 30px 56px;
+        border-radius: 100px;
+        opacity: 0;
+      }
+
+      .cta-button svg {
+        width: 32px;
+        height: 32px;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-dr34" id="root" class="clip" style="opacity: 1" data-composition-id="enp-escola-hook" data-start="0" data-duration="11.3" data-track-index="0" data-width="1080" data-height="1920">
+      <div data-hf-id="hf-90e3" id="warmup" class="clip" data-start="0" data-duration="0.4" data-track-index="1">
+        <div data-hf-id="hf-lr3m" class="warm-bar" id="warm-bar"></div>
+      </div>
+
+      <!-- ================= HOOK ================= -->
+      <div data-hf-id="hf-1pp9" id="hook" class="clip" data-start="0.15" data-duration="3.85" data-track-index="2">
+        <div data-hf-id="hf-sejm" class="card" id="card-hook">
+          <div data-hf-id="hf-wyt1" class="icon-chip" aria-hidden="true">
+            <svg data-hf-id="hf-arpn" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path data-hf-id="hf-7tba" d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+              <path data-hf-id="hf-meqn" d="M3 6h18" />
+              <path data-hf-id="hf-kxt0" d="M16 10a4 4 0 0 1-8 0" />
+            </svg>
+          </div>
+
+          <div data-hf-id="hf-ufq9" class="headline-stage">
+            <div data-hf-id="hf-6whg" class="scene-block" id="scene-a">
+              <div data-hf-id="hf-mf8k" class="line-small"><span data-hf-id="hf-gwgn" class="word">Você</span><span data-hf-id="hf-t5mm" class="word">está</span></div>
+              <div data-hf-id="hf-i32b" class="line-big"><span data-hf-id="hf-3uae" class="word">tentando</span><span data-hf-id="hf-jf2w" class="word">criar</span></div>
+            </div>
+
+            <div data-hf-id="hf-fkdb" class="scene-block" id="scene-b">
+              <div data-hf-id="hf-g9cs" class="line-small"><span data-hf-id="hf-lxx2" class="word">uma</span></div>
+              <div data-hf-id="hf-t8cj" class="line-big"><span data-hf-id="hf-2v11" class="word">loja</span><span data-hf-id="hf-w3ow" class="word">virtual</span></div>
+            </div>
+
+            <div data-hf-id="hf-bm9a" class="scene-block" id="scene-c">
+              <div data-hf-id="hf-f2fp" class="line-small"><span data-hf-id="hf-bm3g" class="word">e</span><span data-hf-id="hf-jytb" class="word">não</span></div>
+              <div data-hf-id="hf-su1i" class="line-big"><span data-hf-id="hf-rpck" class="word">conhece</span></div>
+            </div>
+
+            <div data-hf-id="hf-mhqx" class="scene-block" id="scene-d">
+              <div data-hf-id="hf-avor" class="confetti-chip chip-1" id="chip-1"></div>
+              <div data-hf-id="hf-7gjb" class="confetti-chip chip-2" id="chip-2"></div>
+              <div data-hf-id="hf-p0rn" class="confetti-chip chip-3" id="chip-3"></div>
+
+              <div data-hf-id="hf-fgqq" class="line-small"><span data-hf-id="hf-7n16" class="word">o</span></div>
+              <div data-hf-id="hf-3xqi" class="line-big" style="position: relative">
+                <span data-hf-id="hf-t73g" class="word word--brand" id="frag-1">Ecommerce<span data-hf-id="hf-s2dx" class="brand-underline" id="underline-1"></span></span>
+                <span data-hf-id="hf-ylu2" class="word word--brand" id="frag-2">na<span data-hf-id="hf-w0hy" class="brand-underline" id="underline-2"></span></span>
+                <span data-hf-id="hf-bwvh" class="word word--brand" id="frag-3">Prática?<span data-hf-id="hf-zylz" class="brand-underline" id="underline-3"></span></span>
+
+                <span data-hf-id="hf-k9be" class="spark" id="spark" aria-hidden="true">
+                  <svg data-hf-id="hf-enh9" viewBox="-50 -50 100 100">
+                    <g data-hf-id="hf-1eah" stroke="currentColor" stroke-width="9" stroke-linecap="round">
+                      <line data-hf-id="hf-odzp" x1="0" y1="-40" x2="0" y2="40" />
+                      <line data-hf-id="hf-rbg7" x1="-40" y1="0" x2="40" y2="0" />
+                      <line data-hf-id="hf-zmz8" x1="-26" y1="-26" x2="26" y2="26" />
+                      <line data-hf-id="hf-pm7w" x1="-26" y1="26" x2="26" y2="-26" />
+                    </g>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-po2k" class="progress" aria-hidden="true">
+            <div data-hf-id="hf-qyr3" class="dot" id="dot-0"></div>
+            <div data-hf-id="hf-n0n2" class="dot" id="dot-1"></div>
+            <div data-hf-id="hf-j2j1" class="dot" id="dot-2"></div>
+            <div data-hf-id="hf-iav8" class="dot" id="dot-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= METHOD PANEL ================= -->
+      <div data-hf-id="hf-d5tw" id="panel" class="clip" data-start="3.6" data-duration="4.55" data-track-index="3">
+        <div data-hf-id="hf-spx7" class="card" id="card-panel">
+          <div data-hf-id="hf-yy4l" class="panel-header" id="panel-header">Você acessa um método completo:</div>
+
+          <div data-hf-id="hf-25nu" class="rows-stage">
+            <div data-hf-id="hf-eugs" class="row" id="row-1">
+              <div data-hf-id="hf-9n2n" class="row-icon" aria-hidden="true">
+                <svg data-hf-id="hf-i6u6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path data-hf-id="hf-qobu" d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                  <path data-hf-id="hf-576n" d="M3 6h18" />
+                  <path data-hf-id="hf-rffg" d="M16 10a4 4 0 0 1-8 0" />
+                </svg>
+              </div>
+              <div data-hf-id="hf-tl3z" class="row-label">Criar e estruturar sua loja</div>
+              <div data-hf-id="hf-w5b4" class="row-check" id="check-1" aria-hidden="true">
+                <svg data-hf-id="hf-o7li" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline data-hf-id="hf-mlxs" points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-nicn" class="row" id="row-2">
+              <div data-hf-id="hf-7j1r" class="row-icon" aria-hidden="true">
+                <svg data-hf-id="hf-1w5e" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path data-hf-id="hf-frh1" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                  <circle data-hf-id="hf-nb88" cx="9" cy="7" r="4" />
+                  <path data-hf-id="hf-p3fz" d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                  <path data-hf-id="hf-53jq" d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div data-hf-id="hf-hh91" class="row-label">Atrair clientes</div>
+              <div data-hf-id="hf-70sr" class="row-check" id="check-2" aria-hidden="true">
+                <svg data-hf-id="hf-gmvu" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline data-hf-id="hf-tizs" points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-jk8m" class="row" id="row-3">
+              <div data-hf-id="hf-74qq" class="row-icon" aria-hidden="true">
+                <svg data-hf-id="hf-2agf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline data-hf-id="hf-16vq" points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                  <polyline data-hf-id="hf-z9g5" points="16 7 22 7 22 13" />
+                </svg>
+              </div>
+              <div data-hf-id="hf-t5mz" class="row-label">Vender de verdade — com lucro</div>
+              <div data-hf-id="hf-32oq" class="row-check" id="check-3" aria-hidden="true">
+                <svg data-hf-id="hf-h16v" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline data-hf-id="hf-sc2p" points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= CTA ================= -->
+      <div data-hf-id="hf-coqg" id="cta" class="clip" data-start="7.75" data-duration="3.55" data-track-index="4">
+        <div data-hf-id="hf-1obz" class="card" id="card-cta">
+          <img data-hf-id="hf-lr4h" class="cta-logo" id="cta-logo" alt="Ecommerce na Prática" src="https://marca.ecommercenapratica.com/images/logos/logo-colorido-ecommerce-na-pratica.svg">
+          <div data-hf-id="hf-lkkr" class="cta-headline" id="cta-headline">Conheça a nossa escola</div>
+          <div data-hf-id="hf-d84o" class="cta-button-wrap">
+            <div data-hf-id="hf-f4b2" class="cta-glow" id="cta-glow"></div>
+            <div data-hf-id="hf-29n2" class="cta-button" id="cta-button">
+              <span data-hf-id="hf-74l5">Saiba mais</span>
+              <svg data-hf-id="hf-4sdx" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path data-hf-id="hf-8gds" d="M5 12h14" />
+                <path data-hf-id="hf-gu9w" d="M12 5l7 7-7 7" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <audio data-hf-id="hf-t0ij" id="sfx-whoosh-1" data-start="0.02" data-duration="0.6" data-track-index="20" src=".media/audio/sfx/sfx_001.mp3" data-volume="0.7"></audio>
+      <audio data-hf-id="hf-oyw8" id="sfx-chime" data-start="2.3" data-duration="1.3" data-track-index="21" src=".media/audio/sfx/sfx_003.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-567i" id="sfx-whoosh-2" data-start="3.6" data-duration="0.6" data-track-index="22" src=".media/audio/sfx/sfx_001.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-fdm0" id="sfx-click-1" data-start="5.05" data-duration="0.4" data-track-index="23" src=".media/audio/sfx/sfx_002.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-ty0c" id="sfx-click-2" data-start="5.65" data-duration="0.4" data-track-index="24" src=".media/audio/sfx/sfx_002.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-umyn" id="sfx-click-3" data-start="6.3" data-duration="0.4" data-track-index="25" src=".media/audio/sfx/sfx_002.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-z99q" id="sfx-whoosh-3" data-start="7.7" data-duration="0.6" data-track-index="26" src=".media/audio/sfx/sfx_001.mp3" data-volume="0.6"></audio>
+      <audio data-hf-id="hf-pbim" id="sfx-click-4" data-start="9.3" data-duration="0.4" data-track-index="27" src=".media/audio/sfx/sfx_002.mp3" data-volume="0.7"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      tl.set("#card-panel", { y: 0, data: "hf-hold" }, 0);
+
+      /* ---------------- warm-up ---------------- */
+      tl.set("#warmup", { opacity: 1 }, 0);
+      tl.set("#warm-bar", { opacity: 0, x: -500, scaleX: 0.3, filter: "blur(6px)" }, 0);
+      tl.to("#warm-bar", { opacity: 1, x: 0, scaleX: 1, filter: "blur(0px)", duration: 0.14, ease: "power2.out" }, 0.02);
+      tl.to("#warm-bar", { opacity: 0, x: 500, filter: "blur(8px)", duration: 0.14, ease: "power2.in" }, 0.18);
+      tl.to("#warmup", { opacity: 0, duration: 0.05 }, 0.32);
+
+      /* ---------------- hook scene ---------------- */
+      tl.set("#hook", { opacity: 1 }, 0.15);
+      tl.set("#card-hook", { opacity: 0, scale: 0.96, filter: "blur(10px)", transformOrigin: "50% 50%" }, 0.15);
+      tl.to("#card-hook", { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "power2.out" }, 0.25);
+
+      var BEATS = [
+        { id: "scene-a", start: 0.35, end: 0.95 },
+        { id: "scene-b", start: 1.05, end: 1.65 },
+        { id: "scene-c", start: 1.75, end: 2.3 },
+      ];
+
+      BEATS.forEach(function (beat, bi) {
+        var el = document.getElementById(beat.id);
+        tl.set(el, { opacity: 0 }, 0);
+        tl.set(el, { opacity: 0, filter: "blur(8px)", y: 20 }, beat.start);
+        tl.to(el, { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.3, ease: "power3.out" }, beat.start + 0.02);
+        tl.to(el, { opacity: 0, filter: "blur(6px)", y: -16, duration: 0.16, ease: "power2.in" }, beat.end);
+
+        tl.set("#dot-" + bi, { backgroundColor: "#bdc0c6" }, 0);
+        tl.to("#dot-" + bi, { backgroundColor: "#1076dd", duration: 0.18 }, beat.start + 0.05);
+      });
+
+      // Confetti burst — brief accent chips before the brand payoff.
+      var CHIPS = ["#chip-1", "#chip-2", "#chip-3"];
+      var CHIP_OFFSETS = [
+        { x: -30, y: 20 },
+        { x: 26, y: -18 },
+        { x: -18, y: -24 },
+      ];
+      CHIPS.forEach(function (sel, i) {
+        var off = CHIP_OFFSETS[i];
+        tl.set(sel, { opacity: 0, scale: 0.5, x: off.x, y: off.y, filter: "blur(6px)" }, 2.3);
+        tl.to(sel, { opacity: 1, scale: 1, x: 0, y: 0, filter: "blur(0px)", duration: 0.16, ease: "power3.out" }, 2.32 + i * 0.03);
+        tl.to(sel, { opacity: 0, scale: 0.7, filter: "blur(6px)", duration: 0.18, ease: "power2.in" }, 2.62 + i * 0.02);
+      });
+
+      // Brand payoff — scene-d fragments fly in from distinct offsets and settle.
+      tl.set("#scene-d", { opacity: 0 }, 0);
+      tl.set("#scene-d", { opacity: 1 }, 2.45);
+      tl.set("#scene-d .word--brand", { color: "#313642" }, 2.45);
+
+      tl.set("#scene-d .line-small .word", { opacity: 0, y: 20 }, 2.45);
+      tl.to("#scene-d .line-small .word", { opacity: 1, y: 0, duration: 0.26, ease: "power3.out" }, 2.47);
+
+      var FRAGS = [
+        { sel: "#frag-1", x: -46, y: 26 },
+        { sel: "#frag-2", x: 34, y: -22 },
+        { sel: "#frag-3", x: 50, y: 30 },
+      ];
+      FRAGS.forEach(function (f, i) {
+        tl.set(f.sel, { opacity: 0, x: f.x, y: f.y, filter: "blur(9px)", color: "#313642" }, 2.45);
+        tl.to(
+          f.sel,
+          { opacity: 1, x: 0, y: 0, filter: "blur(0px)", color: "#1076dd", duration: 0.36, ease: "power3.out" },
+          2.5 + i * 0.06,
+        );
+      });
+
+      tl.set(["#underline-1", "#underline-2", "#underline-3"], { scaleX: 0 }, 2.45);
+      tl.to("#underline-1", { scaleX: 1, duration: 0.2, ease: "power2.out" }, 2.92);
+      tl.to("#underline-2", { scaleX: 1, duration: 0.2, ease: "power2.out" }, 2.97);
+      tl.to("#underline-3", { scaleX: 1, duration: 0.2, ease: "power2.out" }, 3.02);
+
+      tl.set("#spark", { opacity: 0, scale: 0.3, rotation: -20 }, 2.45);
+      tl.to("#spark", { opacity: 1, scale: 1, rotation: 0, duration: 0.24, ease: "power3.out" }, 2.88);
+      tl.to("#spark", { opacity: 0, duration: 0.2, ease: "power2.in" }, 3.35);
+      tl.set("#spark", { opacity: 0 }, 3.6);
+
+      // Hook exits.
+      tl.to("#card-hook", { opacity: 0, scale: 1.04, filter: "blur(12px)", duration: 0.3, ease: "power3.in" }, 3.55);
+      tl.to("#hook", { opacity: 0, duration: 0.02 }, 3.85);
+
+      /* ---------------- method panel scene ---------------- */
+      tl.set("#panel", { opacity: 1 }, 3.6);
+      tl.to("#card-panel", {
+        keyframes: {
+          "0%": { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+          "39.5%": { opacity: 0.942, scale: 0.994, y: 11.34 },
+          "100%": { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+          easeEach: "expo.out"
+        },
+        duration: 0.46,
+        ease: "none"
+      }, 3.75);
+
+      tl.set("#panel-header", { opacity: 0, y: 16 }, 3.75);
+      tl.to("#panel-header", { opacity: 1, y: 0, duration: 0.3, ease: "power3.out" }, 4.3);
+
+      var ROWS = [
+        { row: "#row-1", check: "#check-1", start: 4.7 },
+        { row: "#row-2", check: "#check-2", start: 5.3 },
+        { row: "#row-3", check: "#check-3", start: 5.9 },
+      ];
+      ROWS.forEach(function (r) {
+        tl.set(r.row, { opacity: 0, y: 24, filter: "blur(6px)" }, r.start);
+        tl.to(r.row, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, r.start + 0.02);
+        tl.set(r.check, { opacity: 0, scale: 0.5 }, r.start + 0.02);
+        tl.to(r.check, { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out" }, r.start + 0.32);
+      });
+
+      tl.to("#card-panel", { opacity: 0, scale: 0.94, y: -20, filter: "blur(10px)", duration: 0.3, ease: "power3.in" }, 7.65);
+      tl.to("#panel", { opacity: 0, duration: 0.02 }, 7.95);
+
+      /* ---------------- CTA scene ---------------- */
+      tl.set("#cta", { opacity: 1 }, 7.75);
+      tl.set("#card-cta", { opacity: 0, scale: 0.9, y: 32, filter: "blur(10px)", transformOrigin: "50% 50%" }, 7.75);
+      tl.to("#card-cta", { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.42, ease: "expo.out" }, 7.85);
+
+      tl.set("#cta-logo", { opacity: 0, y: 12 }, 7.85);
+      tl.to("#cta-logo", { opacity: 1, y: 0, duration: 0.28, ease: "power2.out" }, 8.05);
+
+      tl.set("#cta-headline", { opacity: 0, y: 20 }, 7.85);
+      tl.to("#cta-headline", { opacity: 1, y: 0, duration: 0.32, ease: "power3.out" }, 8.2);
+
+      tl.set("#cta-button", { opacity: 0, scale: 0.8 }, 7.85);
+      tl.to("#cta-button", { opacity: 1, scale: 1, duration: 0.3, ease: "power3.out" }, 8.5);
+
+      tl.set("#cta-glow", { opacity: 0, scale: 0.85 }, 8.5);
+      tl.to("#cta-glow", { opacity: 0.28, scale: 1.06, duration: 0.32, ease: "sine.out" }, 8.7);
+      tl.to("#cta-glow", { opacity: 0, scale: 1.15, duration: 0.36, ease: "sine.in" }, 9.02);
+
+      // Button press feedback — clean settle, no bounce/elastic.
+      tl.to("#cta-button", { scale: 0.93, duration: 0.08, ease: "power2.in" }, 9.3);
+      tl.to("#cta-button", { scale: 1, duration: 0.16, ease: "power2.out" }, 9.38);
+
+      tl.to({}, { duration: 11.3 }, 0);
+
+      tl.set("#card-panel", { opacity: 0, transformOrigin: "50% 50%" }, 3.6);
+
+      tl.set("#card-panel", { scale: 0.9 }, 3.6);
+
+      tl.set("#card-panel", { y: 40 }, 3.6);
+
+      tl.set("#card-panel", { filter: "blur(12px)" }, 3.6);
+
+      window.__timelines["enp-escola-hook"] = tl;
+    </script>
+  </body>
+</html>

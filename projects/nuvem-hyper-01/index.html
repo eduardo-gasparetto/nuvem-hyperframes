@@ -1,0 +1,66 @@
+<!doctype html>
+<!--
+  nuvem-hyper-01 — HyperFrames
+  ─────────────────────────────────────────────────────────────────────
+  Identidade visual: Nuvemshop (não EnP). Ver shared/nuvem-tokens.css.
+  Canvas: 1080×1920 (Instagram Stories / Reels)
+  ─────────────────────────────────────────────────────────────────────
+-->
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+
+    <link rel="stylesheet" href="shared/fonts.css" />
+    <link rel="stylesheet" href="shared/nuvem-tokens.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--nuvem-dark-blue);
+      }
+      #root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--nuvem-font);
+      }
+      #title {
+        color: var(--nuvem-white);
+        font-size: 72px;
+        font-weight: var(--nuvem-weight-bold);
+        letter-spacing: -0.03em;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="10"
+      data-width="1080"
+      data-height="1920"
+    >
+      <h1 id="title" class="clip" data-start="0" data-duration="10" data-track-index="0">Title</h1>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      // Example: tl.fromTo("#title", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6 }, 0);
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

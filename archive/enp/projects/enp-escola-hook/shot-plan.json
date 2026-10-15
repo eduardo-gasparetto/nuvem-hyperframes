@@ -1,0 +1,59 @@
+{
+  "category": "kinetic-type",
+  "duration_s": 6.4,
+  "fps": 30,
+  "canvas": { "w": 1080, "h": 1920, "aspect": "9:16" },
+  "style": "EnP institutional light — calm, credible, editorial. No bounce/elastic, no gradient text, no italics.",
+  "palette": ["#F4F7FB", "#313642", "#1076DD"],
+  "font": "Plus Jakarta Sans",
+  "beats": [3.9],
+  "export": "mp4",
+  "asset_needs": [],
+  "block": null,
+  "customize": null,
+  "content": {
+    "scenes": [
+      {
+        "id": "scene-a",
+        "start": 0,
+        "end": 1.4,
+        "text": "Você está tentando criar",
+        "emphasis_words": [],
+        "emotion": "curious, direct — opens the question",
+        "motion": "word_reveal (slide_bottom, weight 400)",
+        "beats": []
+      },
+      {
+        "id": "scene-b",
+        "start": 1.4,
+        "end": 2.7,
+        "text": "uma loja virtual",
+        "emphasis_words": ["uma loja virtual"],
+        "emotion": "naming the goal",
+        "motion": "word_reveal (slide_bottom, weight-shift to 600)",
+        "beats": []
+      },
+      {
+        "id": "scene-c",
+        "start": 2.7,
+        "end": 3.9,
+        "text": "e não conhece",
+        "emphasis_words": [],
+        "emotion": "pivot — the gap",
+        "motion": "word_reveal (slide_bottom, weight 400)",
+        "beats": []
+      },
+      {
+        "id": "scene-d",
+        "start": 3.9,
+        "end": 6.4,
+        "text": "o Ecommerce na Prática?",
+        "emphasis_words": ["Ecommerce na Prática"],
+        "emotion": "resolve — brand reveal, question lands",
+        "motion": "word_reveal (slide_bottom) + color_shift to Button Blue + underline_sweep accent (pattern interrupt, one dominant change)",
+        "beats": [3.9]
+      }
+    ]
+  },
+  "notes": "Hook-only cut of the full ad script (value-prop + CTA lines deliberately excluded per user scope). Chromatic mode: institucional claro. Brand name spelled out in full per EnP voice rule (never abbreviate 'Ecommerce na Prática' in user-facing copy)."
+}

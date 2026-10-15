@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #overlay-wrap {
+          position: absolute;
+          left: -537.78px;
+          top: 351.11px;
+          width: 2111.972px;
+          height: 1934.873px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #overlay-inner {
+          width: 1737px;
+          height: 1454.022px;
+          transform: rotate(18.73deg);
+          background: linear-gradient(
+            to bottom,
+            rgba(6, 8, 69, 0) 3.846%,
+            rgba(7, 6, 78, 0.5) 29.327%,
+            #080558 77.093%
+          );
+        }
+      </style>
+
+      <div id="root" data-composition-id="enp-grupo-vip-story-bg-overlay" data-width="1080" data-height="1920">
+        <div id="overlay-wrap" data-layout-allow-overflow>
+          <div id="overlay-inner"></div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines["enp-grupo-vip-story-bg-overlay"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

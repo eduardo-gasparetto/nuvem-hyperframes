@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "historyId": "d3b49069-456d-4e75-9a6b-7619bbc23153",
+  "currentRevision": null,
+  "pendingChanges": false,
+  "files": {
+    "hyperframes.json": {
+      "hash": "60430047b7e49e9d03fab28f90dc75da3a0fc79900354582df181d7d2efc1509",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/d3b49069-456d-4e75-9a6b-7619bbc23153/blobs/60/60430047b7e49e9d03fab28f90dc75da3a0fc79900354582df181d7d2efc1509"
+    },
+    "index.html": {
+      "hash": "433cc1d243f4f84236e9b263c6b81809f92d095c0a05e2d3572a3f9dfc68180c",
+      "content": "/Users/eduardogasparetto/.cache/hyperframes/history/d3b49069-456d-4e75-9a6b-7619bbc23153/blobs/43/433cc1d243f4f84236e9b263c6b81809f92d095c0a05e2d3572a3f9dfc68180c"
+    }
+  },
+  "revisions": {},
+  "checks": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  }
+}

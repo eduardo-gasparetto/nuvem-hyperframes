@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.enp.hyperframes-hub</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/node</string>
+    <string>/Users/eduardogasparetto/Claude Projects/enp-hyperframes/hub/start.mjs</string>
+    <string>--port</string>
+    <string>4402</string>
+    <string>--foreground</string>
+    <string>--no-open</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/eduardogasparetto/Claude Projects/enp-hyperframes/hub</string>
+
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+  </dict>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>ProcessType</key>
+  <string>Background</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/eduardogasparetto/Library/Logs/enp-hyperframes-hub.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/eduardogasparetto/Library/Logs/enp-hyperframes-hub.err.log</string>
+</dict>
+</plist>

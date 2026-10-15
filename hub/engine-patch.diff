@@ -1,0 +1,118 @@
+diff --git a/packages/cli/src/server/fileWatcher.ts b/packages/cli/src/server/fileWatcher.ts
+index fa77299df..3736adf66 100644
+--- a/packages/cli/src/server/fileWatcher.ts
++++ b/packages/cli/src/server/fileWatcher.ts
+@@ -15,6 +15,9 @@ export interface ProjectWatcher {
+ }
+ 
+ const WATCHER_EXCLUDED_DIRS = new Set([
++  // [HF-MULTIPROJECT] ignore the engine/hub folders living inside the workspace
++  "engine",
++  "hub",
+   ".cache",
+   ".git",
+   ".hyperframes",
+diff --git a/packages/cli/src/server/studioServer.ts b/packages/cli/src/server/studioServer.ts
+index 625cc0ddb..2ed762d9d 100644
+--- a/packages/cli/src/server/studioServer.ts
++++ b/packages/cli/src/server/studioServer.ts
+@@ -8,7 +8,7 @@
+ import { Hono, type Context } from "hono";
+ import { streamSSE } from "hono/streaming";
+ import { realpath } from "@hyperframes/core";
+-import { existsSync, readFileSync, statSync, writeFileSync, unlinkSync } from "node:fs";
++import { existsSync, readFileSync, statSync, writeFileSync, unlinkSync, readdirSync } from "node:fs";
+ import { replaceFileAtomically } from "@hyperframes/core/atomic-file";
+ import { createHash } from "node:crypto";
+ import { fileURLToPath } from "node:url";
+@@ -425,14 +425,44 @@ function rewriteWrittenToHostViewport(projectDir: string, written: string[]): vo
+   }
+ }
+ 
++// [HF-MULTIPROJECT] multi-project discovery helpers (injected by hf-multiproject/apply-hack.mjs)
++function __hfDiscoverProjects(rootDir: string | null, fallback: ResolvedProject): ResolvedProject[] {
++  if (!rootDir) return [fallback];
++  try {
++    const out: ResolvedProject[] = [];
++    for (const e of readdirSync(rootDir, { withFileTypes: true })) {
++      if (!e.isDirectory() || e.name.startsWith(".")) continue;
++      const dir = join(rootDir, e.name);
++      if (existsSync(join(dir, "index.html")) || existsSync(join(dir, "hyperframes.json"))) {
++        out.push({ id: e.name, dir, title: e.name });
++      }
++    }
++    return out.length ? out : [fallback];
++  } catch {
++    return [fallback];
++  }
++}
++function __hfResolveProject(
++  id: string,
++  rootDir: string | null,
++  projectId: string,
++  fallback: ResolvedProject,
++): ResolvedProject | null {
++  if (!rootDir) return id === projectId ? fallback : null;
++  return __hfDiscoverProjects(rootDir, fallback).find((p) => p.id === id) ?? null;
++}
++const __HF_SWITCHER_SCRIPT = "<script>(function(){var PROJECTS=[];function curId(){var m=(location.hash||'').match(/^#?project\\/([^?\\/]+)/);var id=m?decodeURIComponent(m[1]):'';if(id&&PROJECTS.some(function(p){return p.id===id;}))return id;return PROJECTS.length?PROJECTS[0].id:'';}function go(id){var q=(location.hash.split('?')[1]||'');location.hash='project/'+id+(q?('?'+q):'');}function makeSelect(){var s=document.createElement('select');s.title='Projeto';s.style.cssText='background:#1a1a1a;color:#fff;border:1px solid #3a3a3a;border-radius:7px;padding:4px 8px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer;outline:none;max-width:170px';PROJECTS.forEach(function(p){var o=document.createElement('option');o.value=p.id;o.textContent=p.title||p.id;s.appendChild(o);});s.value=curId();s.addEventListener('change',function(){go(s.value);});return s;}function sync(){var w=document.getElementById('hf-mp-switcher');var s=w&&w.querySelector('select');if(s){var c=curId();if(s.value!==c)s.value=c;}}function ensure(){if(!PROJECTS.length)return;var w=document.getElementById('hf-mp-switcher');if(w&&w.isConnected){sync();return;}var exp=Array.prototype.find.call(document.querySelectorAll('button'),function(b){return b.textContent.trim()==='Export';});if(!exp)return;var anchor=exp.closest('span.contents')||exp;if(!anchor.parentElement)return;if(w)w.remove();var wrap=document.createElement('div');wrap.id='hf-mp-switcher';wrap.style.cssText='display:flex;align-items:center;margin-right:8px';wrap.appendChild(makeSelect());anchor.parentElement.insertBefore(wrap,anchor);}function start(){fetch('/api/projects').then(function(r){return r.json();}).then(function(d){PROJECTS=(d&&d.projects)||[];if(!PROJECTS.length)return;ensure();setInterval(ensure,800);window.addEventListener('hashchange',sync);}).catch(function(){});}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();})();</script>";
++
+ export function createStudioServer(options: StudioServerOptions): StudioServer {
+   const { projectDir, projectName } = options;
+   const projectId = projectName || basename(projectDir);
++  // [HF-MULTIPROJECT]
++  const __hfRoot = process.env.HF_WORKSPACE ? resolve(process.env.HF_WORKSPACE) : null;
+   const browserGpuMode = options.browserGpuMode ?? resolveLocalBrowserGpuMode();
+   const studioDir = resolveDistDir();
+   const runtimePath = resolveRuntimePath();
+   stampProjectHfIds(projectDir);
+-  const watcher = createProjectWatcher(projectDir);
++  const watcher = createProjectWatcher(__hfRoot ?? projectDir);
+ 
+   // ── CLI adapter for the shared studio API ──────────────────────────────
+ 
+@@ -489,7 +519,7 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
+     // configured behavior without its own plumbing.
+     autoProxy: options.autoProxy ?? resolveAutoProxy(projectDir, undefined),
+ 
+-    listProjects: () => [project],
++    listProjects: () => __hfDiscoverProjects(__hfRoot, project),
+ 
+     // Salted with the running CLI file, so an upgraded CLI never serves an older build's document.
+     previewDocuments: createPreviewDocumentStore(
+@@ -499,7 +529,7 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
+         .digest("hex"),
+     ),
+ 
+-    resolveProject: (id: string) => (id === projectId ? project : null),
++    resolveProject: (id: string) => __hfResolveProject(id, __hfRoot, projectId, project),
+ 
+     async bundle(dir, options): Promise<string | null> {
+       try {
+@@ -1148,6 +1178,8 @@ export function createStudioServer(options: StudioServerOptions): StudioServer {
+     // The shell names the current hashed bundle, so it always revalidates.
+     // `no-cache` not `no-store`: same refetch without an ETag, but `no-store`
+     // would blocklist the document from Chrome's bfcache.
++    // [HF-MULTIPROJECT] inject project switcher
++    html = html.replace("</body>", __HF_SWITCHER_SCRIPT + "</body>");
+     return c.html(html, 200, { "Cache-Control": "no-cache" });
+   });
+ 
+diff --git a/packages/inspector/build.mjs b/packages/inspector/build.mjs
+index 7ddf9f223..093031fac 100644
+--- a/packages/inspector/build.mjs
++++ b/packages/inspector/build.mjs
+@@ -9,10 +9,12 @@ import {
+   writeFileSync,
+ } from "node:fs";
+ import { createRequire } from "node:module";
++import { fileURLToPath } from "node:url";
+ import { dirname, join } from "node:path";
+ import { build } from "esbuild";
+ 
+-const at = (path) => new URL(path, import.meta.url).pathname;
++// [HF-MULTIPROJECT] .pathname deixa %20 em paths com espaço; decodificar via fileURLToPath
++const at = (path) => fileURLToPath(new URL(path, import.meta.url));
+ const { dependencies } = JSON.parse(readFileSync(at("./package.json"), "utf8"));
+ // Declared dependencies stay imports; the workspace's own sources (core, parsers) are bundled in.
+ const external = Object.keys(dependencies).filter((name) => !name.startsWith("@hyperframes/"));

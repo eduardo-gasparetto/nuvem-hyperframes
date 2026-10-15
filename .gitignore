@@ -1,0 +1,17 @@
+# Upstream engine: rebuilt from hub/engine.ref by `node hub/update.mjs --first-time`
+/engine/
+
+# Dependencies and build output
+node_modules/
+dist/
+
+# Per-project generated files
+**/renders/
+**/.thumbnails/
+**/.hyperframes/artifacts/
+**/.hyperframes/backup/
+**/.hyperframes/preview/
+
+# Local-only
+.DS_Store
+.claude/settings.local.json

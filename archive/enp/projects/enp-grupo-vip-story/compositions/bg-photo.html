@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #photo-wrap {
+          position: absolute;
+          left: -90px;
+          top: 97px;
+          width: 1906.434px;
+          height: 1881.275px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #photo-inner {
+          position: relative;
+          width: 1705.847px;
+          height: 1676.72px;
+          transform: rotate(-7.35deg);
+          overflow: hidden;
+        }
+        #photo-inner img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      </style>
+
+      <div id="root" data-composition-id="enp-grupo-vip-story-bg-photo" data-width="1080" data-height="1920">
+        <div id="photo-wrap" data-layout-allow-overflow>
+          <div id="photo-inner">
+            <img src="../shared/assets/juliana-marques.png" alt="Juliana Marques, da loja Siiis Kids" />
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines["enp-grupo-vip-story-bg-photo"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
