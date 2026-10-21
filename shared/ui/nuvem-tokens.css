@@ -1,0 +1,222 @@
+/*
+ * Nuvemshop Design System — Tokens CSS
+ * Gerado de: skill insti-styleguide (design system oficial Nuvemshop)
+ * Uso: copie para a pasta do projeto ou importe via <link>.
+ *
+ * Fonte: adicione no <head> da composição:
+ *   <link rel="stylesheet" href="shared/fonts.css">   (self-hosted, preferível em render determinístico)
+ */
+
+/* ─────────────────────────────────────────────────────────
+   TIPOGRAFIA
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', arial, sans-serif;
+  /* Só o corte Light Italic (300 italic) está disponível — ver shared/fonts.css */
+  --nuvem-font-display: 'Ivy Presto Display', serif;
+  --nuvem-font-display-weight: 300;
+  --nuvem-font-display-style: italic;
+
+  /* Escala — desktop (768px+) */
+  --nuvem-h1: 64px;
+  --nuvem-h2: 42px;
+  --nuvem-h3: 32px;
+  --nuvem-h4: 24px;
+  --nuvem-h5: 20px;
+
+  /* Escala — mobile */
+  --nuvem-h1-mobile: 40px;
+  --nuvem-h2-mobile: 36px;
+  --nuvem-h3-mobile: 32px;
+  --nuvem-h4-mobile: 24px;
+  --nuvem-h5-mobile: 20px;
+
+  /* Corpo de texto */
+  --nuvem-body-lg: 20px;
+  --nuvem-body-md: 22px;
+  --nuvem-body:    18px; /* base */
+  --nuvem-body-sm: 16px;
+  --nuvem-small:   14px;
+  --nuvem-xsmall:  12px;
+
+  /* Pesos */
+  --nuvem-weight-regular: 400;
+  --nuvem-weight-bold:    600;
+
+  /* Line-height */
+  --nuvem-leading-heading:        1.1;  /* desktop */
+  --nuvem-leading-heading-mobile: 1.15;
+  --nuvem-leading-body:           1.3;  /* desktop */
+  --nuvem-leading-body-mobile:    1.2;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Primária (Nimbus)
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-nimbus-blue:    #0050C3; /* ações primárias, links, CTAs */
+  --nuvem-dark-blue:      #171E43; /* headings, texto escuro, nav */
+  --nuvem-light-blue:     #BCDFFD; /* highlights, badges */
+  --nuvem-clear-blue:     #DEEFFE; /* alertas info, fundos suaves */
+  --nuvem-clear-blue-bg:  #F5FAFF; /* hover de tabela, fundos sutis */
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Escala de cinza
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-white:           #FFFFFF;
+  --nuvem-light-grey-bg:   #F7F7F7;
+  --nuvem-nube-white:      #ECEBEC;
+  --nuvem-lightest-grey:   #E7E8E9;
+  --nuvem-light-grey:      #A0A3A6;
+  --nuvem-mid-grey:        #8A8D90;
+  --nuvem-dark-grey:       #494B4D;
+  --nuvem-text-dark-grey:  #343537;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Azuis de apoio
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-sky-blue-dark:  #4B5FA0; /* hover de link, foco de input */
+  --nuvem-sky-blue-light: #00B4E6; /* acentos decorativos */
+  --nuvem-deep-blue:      #2D2938; /* fundos escuros, marca alternativa */
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Library Figma "[Brand] Design Guidelines" (Tiendanube/Nuvemshop)
+   Fonte: https://www.figma.com/design/MuJFHhtG9jKET6qF4jcwtm (consulta read-only,
+   17 estilos de cor, valores lidos diretamente dos FILL styles da library —
+   não estimados). Nimbus Gray 10/20/40/60 e Composition Colors batem exatamente
+   com --enp-gray-* / --enp-orange/pink/green/yellow do enp-tokens.css.
+   ───────────────────────────────────────────────────────── */
+:root {
+  /* Main Colors (Nimbus Blue e Pure White já cobertos acima por
+     --nuvem-nimbus-blue e --nuvem-white) */
+  --nuvem-lib-highlight-blue: #59A9FF;
+  --nuvem-lib-galaxy-blue:    #010B23;
+  --nuvem-lib-nimbus-night:   radial-gradient(circle, #0050C3 0%, #00298F 29.81%, #080558 65.38%, #010B23 100%);
+
+  /* Support Blue */
+  --nuvem-lib-sky-blue:   #00B4E6; /* = --nuvem-sky-blue-light */
+  --nuvem-lib-space-blue: #080558;
+  --nuvem-lib-clear-blue: #99D3FF;
+  --nuvem-lib-ocean-blue: #00298F;
+
+  /* Grayscale (Nimbus Gray) */
+  --nuvem-lib-gray-10: #EFF1F4;
+  --nuvem-lib-gray-20: #BDC0C6;
+  --nuvem-lib-gray-40: #979BA1;
+  --nuvem-lib-gray-60: #5C6167;
+
+  /* Composition Colors */
+  --nuvem-lib-dawn-orange:      #FF7A27;
+  --nuvem-lib-sunset-pink:      #C3355D;
+  --nuvem-lib-nature-green:     #00CD4B;
+  --nuvem-lib-lightning-yellow: #F4DC18;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Mid Market (Next/Evolución)
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-space-black: #010B23;
+  --nuvem-space-10:    #3B4053;
+  --nuvem-space-20:    #777B8C;
+  --nuvem-space-30:    #B2B5C6;
+  --nuvem-space-40:    #EEF4FA;
+  --nuvem-space-50:    #CDD6FC;
+}
+
+/* ─────────────────────────────────────────────────────────
+   CORES — Estado / semânticas
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-success-matte: #0CA76B;
+  --nuvem-heading:       var(--nuvem-dark-blue);
+  --nuvem-body-text:     var(--nuvem-light-grey);
+  --nuvem-body-text-strong: var(--nuvem-text-dark-grey);
+  --nuvem-link:          var(--nuvem-nimbus-blue);
+  --nuvem-link-hover:    var(--nuvem-sky-blue-dark);
+}
+
+/* ─────────────────────────────────────────────────────────
+   ESPAÇAMENTO (unidade base 4px)
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-space-2:  8px;
+  --nuvem-space-4:  16px;
+  --nuvem-space-6:  24px;
+  --nuvem-space-8:  32px;
+  --nuvem-space-10: 40px;
+  --nuvem-space-12: 48px;
+  --nuvem-space-15: 60px;
+  --nuvem-space-16: 64px;
+  --nuvem-space-20: 80px;
+
+  /* Presets */
+  --nuvem-section-padding:      120px;
+  --nuvem-section-padding-half:  60px;
+  --nuvem-card-padding:           16px;
+  --nuvem-card-padding-v:         40px;
+  --nuvem-card-padding-h:         16px;
+  --nuvem-card-padding-full-v:    40px;
+  --nuvem-card-padding-full-h:    32px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   BORDER RADIUS
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-radius-sm:   3px;
+  --nuvem-radius-md:   6px;
+  --nuvem-radius-lg:  16px;
+  --nuvem-radius-full: 32px;
+  --nuvem-radius-xl:  48px;
+  --nuvem-radius-pill: 100px;
+}
+
+/* ─────────────────────────────────────────────────────────
+   SOMBRAS
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-shadow:        0 24px 48px -12px rgba(50,50,93,0.1), 0 18px 36px -18px rgba(0,0,0,0.1), 0 -12px 36px -8px rgba(0,0,0,0.02);
+  --nuvem-shadow-soft:   0 10px 30px rgba(0,0,0,0.05);
+  --nuvem-shadow-sticky: 4px 0 6px -2px rgba(0,0,0,0.08), 6px 0 12px -4px rgba(0,0,0,0.05);
+}
+
+/* ─────────────────────────────────────────────────────────
+   TRANSIÇÕES / MOTION
+   UI only (site/app transitions). Video motion is a separate system: shared/video/motion-identity.md + motion.js.
+   Note: --nuvem-ease-inout-quad's curve is actually an in-out cubic (Penner approximation); name kept for compatibility.
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-dur-fast:   0.3s;
+  --nuvem-dur-normal: 0.6s;
+  --nuvem-dur-slow:   2s;
+
+  --nuvem-ease-out-expo:    cubic-bezier(0.19, 1, 0.22, 1);
+  --nuvem-ease-inout-quad:  cubic-bezier(0.645, 0.045, 0.355, 1);
+  --nuvem-ease-inout-quart: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ─────────────────────────────────────────────────────────
+   GRADIENTES
+   ───────────────────────────────────────────────────────── */
+:root {
+  --nuvem-grad-blue-primary: radial-gradient(203.73% 209.35% at 3.75% 130.93%, #0050C3 0%, #00298F 29.81%, #080558 65.38%, #010B23 100%);
+  --nuvem-grad-glass-light:  linear-gradient(180deg, rgba(0,80,195,0.1) 0%, rgba(0,80,195,0.3) 100%);
+  --nuvem-grad-glass-medium: linear-gradient(180deg, rgba(0,80,195,0.4) 0%, rgba(0,80,195,0.2) 100%);
+  --nuvem-grad-glass-strong: linear-gradient(180deg, #0050C3 0%, rgba(0,80,195,0.7) 100%);
+}
+
+/* ─────────────────────────────────────────────────────────
+   REDUCED MOTION (obrigatório)
+   ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

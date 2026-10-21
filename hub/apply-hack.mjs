@@ -14,9 +14,9 @@ import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const REPO = resolve(HERE, "..", "engine");
+const REPO = process.env.HF_ENGINE_DIR || resolve(HERE, "..", "engine"); // override: check-updates.mjs runs this on a throwaway clone
 const STUDIO_SERVER = join(REPO, "packages/cli/src/server/studioServer.ts");
-const FILE_WATCHER = join(REPO, "packages/cli/src/server/fileWatcher.ts");
+const FILE_WATCHER = join(REPO, "packages/core/src/projectFolders.ts"); // upstream moved the watcher ignore-set here (was cli/.../fileWatcher.ts WATCHER_EXCLUDED_DIRS)
 const INSPECTOR_BUILD = join(REPO, "packages/inspector/build.mjs");
 const MARKER = "// [HF-MULTIPROJECT]";
 
@@ -161,20 +161,20 @@ src = src.replace(
 function patchFileWatcher() {
   let src = readFileSync(FILE_WATCHER, "utf8");
   if (src.includes(MARKER)) {
-    console.log("✓ fileWatcher.ts já patchado. Pulando.");
+    console.log("✓ projectFolders.ts já patchado. Pulando.");
     return;
   }
-  const failHere = (msg) => fail("fileWatcher.ts", msg);
+  const failHere = (msg) => fail("projectFolders.ts", msg);
 
-  const setAnchor = "const WATCHER_EXCLUDED_DIRS = new Set([";
-  if (!src.includes(setAnchor)) failHere("não achei WATCHER_EXCLUDED_DIRS");
+  const setAnchor = "export const PREVIEW_IGNORED_DIRS: ReadonlySet<string> = new Set([";
+  if (!src.includes(setAnchor)) failHere("não achei PREVIEW_IGNORED_DIRS");
   src = src.replace(
     setAnchor,
     `${setAnchor}\n  ${MARKER} ignore the engine/hub folders living inside the workspace\n  "engine",\n  "hub",`,
   );
 
   writeFileSync(FILE_WATCHER, src);
-  console.log("✓ fileWatcher.ts: pastas engine/ e hub/ excluídas do watcher.");
+  console.log("✓ projectFolders.ts: pastas engine/ e hub/ excluídas do watcher.");
 }
 
 // ───────── inspector/build.mjs (paths com espaço quebram em macOS "Claude Projects") ─────────

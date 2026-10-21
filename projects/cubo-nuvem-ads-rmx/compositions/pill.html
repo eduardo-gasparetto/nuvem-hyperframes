@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+  pill — sub-composition: "Anúncios Integrados" product tag (track 3 of index.html).
+  Grows from a circle (phase 1) into the pill (phase 2); the label is revealed by the widening.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Plus Jakarta Sans';
+          font-style: normal;
+          font-weight: 400 600;
+          font-display: swap;
+          src: url('shared/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #pill {
+          position: absolute;
+          left: 204px;
+          top: 77.5px;
+          width: 0;
+          height: 0;
+          opacity: 0;
+          box-sizing: border-box;
+          overflow: hidden;
+          border: 2px solid rgba(89, 169, 255, 0.08);
+          border-radius: 190px;
+          background: rgba(0, 80, 195, 0.2);
+          backdrop-filter: blur(40px);
+          -webkit-backdrop-filter: blur(40px);
+          box-shadow:
+            0 8px 13px rgba(0, 21, 70, 0.08),
+            inset 0 2px 0 rgba(89, 169, 255, 0.15);
+        }
+        #pill .pill-clip {
+          position: absolute;
+          left: 38px;
+          right: 36px;
+          top: 0;
+          bottom: 0;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+        }
+        #pill .pill-label {
+          white-space: nowrap;
+          text-align: left;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 25px;
+          letter-spacing: -0.25px;
+          line-height: normal;
+          color: #ffffff;
+          font-feature-settings: "liga" 0, "lnum" 1, "pnum" 1;
+        }
+      </style>
+
+      <div data-hf-id="hf-jopv" id="root" data-composition-id="pill" data-width="1512" data-height="672">
+        <div data-hf-id="hf-6cks" id="pill">
+          <div data-hf-id="hf-qjek" class="pill-clip">
+            <span data-hf-id="hf-tmnq" class="pill-label">Anúncios Integrados</span>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const pill = document.getElementById("pill");
+
+        // Initial state: hidden by CSS (opacity 0, size 0); centre the box on (204, 77.5).
+        gsap.set(pill, { xPercent: -50, yPercent: -50 });
+
+        // Phase 1: circle grows from nothing.
+        tl.fromTo(pill, { width: 0, height: 0 }, { width: 75, height: 75, duration: 0.7, ease: "power1.out", immediateRender: false }, 0);
+
+        // Border artifact guard: with a 2px border the box cannot draw below 4px, so it stays
+        // hidden until the width passes 4px (about t = 0.019 s on the phase-1 curve) and then fades in.
+        tl.fromTo(pill, { opacity: 0 }, { opacity: 1, duration: 0.01, ease: "none", immediateRender: false }, 0.02);
+
+        // Phase 2: widens, height stays 75.
+        tl.to(pill, { width: 324, duration: 0.6, ease: "power2.inOut" }, 0.7);
+
+        window.__timelines["pill"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

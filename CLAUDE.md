@@ -15,8 +15,10 @@ nuvem-hyperframes/
 ├── projects/    ← HF_WORKSPACE. CADA SUBPASTA AQUI é um projeto HyperFrames de verdade
 │   │              (index.html próprio, roda `npm run dev`/`npx hyperframes check` dentro
 │   │              dela). O Studio do hub detecta cada subpasta automaticamente.
-├── shared/      ← assets/fontes/tokens CSS compartilhados, copiados (não linkados)
-│                  pra dentro de cada projeto que usa. Hoje vazio.
+├── shared/      ← matriz de marca, copiada (não linkada) pra dentro de cada projeto que usa:
+│   │              fonts/ + fonts.css (comuns), ui/ (tokens de interface, skill insti-styleguide),
+│   │              video/ (identidade de vídeo: visual-identity.md, video-tokens.css,
+│   │              motion-identity.md, motion.js). ui e video são sistemas separados — não misturar.
 ├── archive/enp/ ← projetos e assets EnP arquivados (fora do Studio). Só histórico —
 │                  este hub não tem mais ligação com EnP. Ver archive/enp/README.md.
 └── docs/        ← WORKLOG.md (log de sessão) e notes.md (notas de arquitetura do framework)
@@ -25,14 +27,21 @@ nuvem-hyperframes/
 **Sem `package.json` na raiz** — comandos `npm run dev/check/render` rodam *dentro* de uma
 pasta de `projects/<nome>/`, nunca aqui.
 
+**Repositório git (raiz):** versiona hub, projects, docs, archive e skills. O `engine/` **não** é
+versionado — `hub/engine.ref` fixa o commit do upstream. Pra reconstruir numa máquina nova:
+`git clone <repo> && node hub/update.mjs --first-time` (clona o engine no commit fixado, reaplica o
+hack e builda). Um `update.mjs` normal bem-sucedido regrava o `engine.ref` — commitar essa mudança.
+
 **Atualizar o engine:** `cd hub && node update.mjs` (reset --hard → pull → reaplica o hack →
 rebuild). Depois `launchctl kickstart -k gui/$(id -u)/com.nuvem.hyperframes-hub` pro serviço
 pegar o build novo. Se o `apply-hack.mjs` falhar, o upstream mudou o trecho-alvo — ver a
 seção "Failure mode" do HACK.md.
 
-**Identidade visual:** Nuvemshop (`projects/nuvem-hyper-01/shared/nuvem-tokens.css`, skill
-`insti-styleguide`). Cada projeto carrega seus próprios tokens/fontes dentro da própria pasta
-em `projects/` — o Studio não segue symlinks pra fora dela.
+**Identidade visual:** Nuvemshop. Vídeo → `shared/video/` (ler `visual-identity.md` e
+`motion-identity.md` antes de compor; usar `video-tokens.css` + `motion.js`). Interface → `shared/ui/`
+(skill `insti-styleguide`). Cada projeto carrega sua própria cópia dentro da própria pasta em
+`projects/` — o Studio não segue symlinks pra fora dela. Editar sempre a matriz em `shared/` e
+recopiar; `node shared/video/motion.test.mjs` depois de mexer no `motion.js`.
 
 ---
 

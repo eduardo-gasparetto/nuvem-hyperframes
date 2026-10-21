@@ -1,0 +1,117 @@
+<!doctype html>
+<!--
+  icons-scene1 — sub-composition: four social icons (Google, TikTok, WhatsApp, Instagram)
+  with their avatar photos (track 4 of index.html). Icon pops in; avatar emerges from the
+  icon's rim and settles on its final position. No exit in this sub-composition.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #root img {
+          position: absolute;
+          display: block;
+          transform-origin: 50% 50%;
+        }
+        #root .icon {
+          width: 115.9px;
+          height: 115.9px;
+        }
+        #root .avatar {
+          width: 74.8px;
+          height: 74.8px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 0;
+          box-shadow: none;
+        }
+      </style>
+
+      <div id="root" data-composition-id="icons-scene1" data-width="1512" data-height="672">
+        <img id="google-icon" class="icon" src="assets/icons/google.svg" alt="" style="left: 1256.3px; top: 481.5px" />
+        <img id="google-avatar" class="avatar" src="assets/avatars/google.png" alt="" style="left: 1340.3px; top: 539.1px" />
+
+        <img id="tiktok-icon" class="icon" src="assets/icons/tiktok.svg" alt="" style="left: 143px; top: 487px" />
+        <img id="tiktok-avatar" class="avatar" src="assets/avatars/tiktok.png" alt="" style="left: 86px; top: 512.6px" />
+
+        <img id="whatsapp-icon" class="icon" src="assets/icons/whatsapp.svg" alt="" style="left: 155.5px; top: 161.4px" />
+        <img id="whatsapp-avatar" class="avatar" src="assets/avatars/whatsapp.png" alt="" style="left: 99px; top: 159px" />
+
+        <img id="instagram-icon" class="icon" src="assets/icons/instagram.svg" alt="" style="left: 1215.5px; top: 98.7px" />
+        <img id="instagram-avatar" class="avatar" src="assets/avatars/instagram.png" alt="" style="left: 1306.7px; top: 145.9px" />
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        const ICON_R = 115.9 / 2; // 57.95
+        const AV_R = 74.8 / 2; // 37.4
+
+        const items = [
+          { name: "google", iL: 1256.3, iT: 481.5, aL: 1340.3, aT: 539.1, t0: 1.914 },
+          { name: "tiktok", iL: 143.0, iT: 487.0, aL: 86.0, aT: 512.6, t0: 2.114 },
+          { name: "whatsapp", iL: 155.5, iT: 161.4, aL: 99.0, aT: 159.0, t0: 2.314 },
+          { name: "instagram", iL: 1215.5, iT: 98.7, aL: 1306.7, aT: 145.9, t0: 2.514 },
+        ];
+
+        items.forEach((it) => {
+          const icon = document.getElementById(it.name + "-icon");
+          const avatar = document.getElementById(it.name + "-avatar");
+
+          // Centres.
+          const ic = [it.iL + ICON_R, it.iT + ICON_R];
+          const ac = [it.aL + AV_R, it.aT + AV_R];
+
+          // Rim start: point on the icon circle facing the avatar centre.
+          const dx = ac[0] - ic[0];
+          const dy = ac[1] - ic[1];
+          const len = Math.hypot(dx, dy);
+          const ux = dx / len;
+          const uy = dy / len;
+          const rimX = ic[0] + ICON_R * ux;
+          const rimY = ic[1] + ICON_R * uy;
+
+          // Offset from the avatar's final position to the rim start.
+          const sx = rimX - ac[0];
+          const sy = rimY - ac[1];
+
+          // Initial hidden state, set at load (the sub-composition is visible from t = 0).
+          gsap.set(icon, { scale: 0 });
+          gsap.set(avatar, { scale: 0, x: sx, y: sy });
+
+          tl.fromTo(icon, { scale: 0 }, { scale: 1, duration: 0.62, ease: "power2.out", immediateRender: false }, it.t0);
+          tl.fromTo(
+            avatar,
+            { scale: 0, x: sx, y: sy },
+            { scale: 1, x: 0, y: 0, duration: 0.725, ease: "power3.out", immediateRender: false },
+            it.t0 + 0.23,
+          );
+        });
+
+        // Other icons leave (scale to 0). Each avatar leaves 0.10 s before its icon.
+        const leave = [
+          { name: "instagram", iconStart: 17.115, iconDur: 0.33 },
+          { name: "whatsapp", iconStart: 17.2, iconDur: 0.36 },
+          { name: "tiktok", iconStart: 17.267, iconDur: 0.42 },
+          { name: "google", iconStart: 17.473, iconDur: 0.33 },
+        ];
+        leave.forEach((l) => {
+          const icon = document.getElementById(l.name + "-icon");
+          const avatar = document.getElementById(l.name + "-avatar");
+          tl.fromTo(avatar, { scale: 1, x: 0, y: 0 }, { scale: 0, duration: 0.27, ease: "power2.in", immediateRender: false }, l.iconStart - 0.1);
+          tl.fromTo(icon, { scale: 1, x: 0, y: 0 }, { scale: 0, duration: l.iconDur, ease: "power2.in", immediateRender: false }, l.iconStart);
+        });
+
+        window.__timelines["icons-scene1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

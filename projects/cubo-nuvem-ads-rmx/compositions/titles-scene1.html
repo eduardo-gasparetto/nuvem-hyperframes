@@ -1,0 +1,151 @@
+<!doctype html>
+<!--
+  titles-scene1 — sub-composition: scene-1 headlines (track 2 of index.html).
+  Two title blocks, each word animated in on the paused timeline; exits are linear fades.
+  Font families come from shared/fonts.css (linked by index.html).
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Plus Jakarta Sans';
+          font-style: normal;
+          font-weight: 400 600;
+          font-display: swap;
+          src: url('shared/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+        }
+        @font-face {
+          font-family: 'Ivy Presto Display';
+          font-style: italic;
+          font-weight: 300;
+          font-display: swap;
+          src: url('shared/fonts/ivy-presto-display-light-italic.otf') format('opentype');
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        .title {
+          position: absolute;
+          width: 989.163px;
+          text-align: center;
+          color: #ffffff;
+        }
+        #title-1 {
+          left: 271px;
+          top: 219.5px;
+        }
+        #title-1 .line-1 {
+          margin-bottom: -25.9px;
+        }
+        #title-2 {
+          left: 256.5px;
+          top: 220.5px;
+        }
+        #title-2 .line-1 {
+          margin-bottom: -16.9px;
+        }
+        .title .line-1 {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 92px;
+          letter-spacing: -1.4px;
+          line-height: 1.28;
+        }
+        .title .line-2 {
+          font-family: 'Ivy Presto Display', serif;
+          font-style: italic;
+          font-weight: 300;
+          font-size: 97px;
+          letter-spacing: -1.5px;
+          line-height: 1.28;
+        }
+        .title .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #title-3 {
+          left: 253px;
+          top: 258.3px;
+          white-space: nowrap;
+        }
+        #title-3 .t3-sans {
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 92px;
+          letter-spacing: -0.92px;
+          line-height: 1.28;
+        }
+        #title-3 .t3-serif {
+          font-family: 'Ivy Presto Display', serif;
+          font-style: italic;
+          font-weight: 300;
+          font-size: 97px;
+          letter-spacing: -0.924px;
+          line-height: 1.28;
+        }
+      </style>
+
+      <div id="root" data-composition-id="titles-scene1" data-width="1512" data-height="672">
+        <div id="title-1" class="title">
+          <div class="line-1"><span class="w" style="display:inline-block">Seu</span> <span class="w" style="display:inline-block">cliente</span></div>
+          <div class="line-2"><span class="w" style="display:inline-block">está</span> <span class="w" style="display:inline-block">em</span> <span class="w" style="display:inline-block">todo</span> <span class="w" style="display:inline-block">lugar</span></div>
+        </div>
+
+        <div id="title-2" class="title">
+          <div class="line-1"><span class="w" style="display:inline-block">Sua</span> <span class="w" style="display:inline-block">marca</span></div>
+          <div class="line-2"><span class="w" style="display:inline-block">também</span> <span class="w" style="display:inline-block">deve</span> <span class="w" style="display:inline-block">estar</span></div>
+        </div>
+        <div id="title-3" class="title">
+          <div class="line-3"><span class="t3-sans"><span class="w" style="display:inline-block">E</span> <span class="w" style="display:inline-block">agora,</span> </span><span class="t3-serif"><span class="w" style="display:inline-block">Chat</span> <span class="w" style="display:inline-block">GPT</span></span></div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        const STAGGER = 0.112;
+        const w1 = Array.from(document.querySelectorAll("#title-1 .w"));
+        const w2 = Array.from(document.querySelectorAll("#title-2 .w"));
+
+        // Initial state: words hidden by CSS (opacity 0); vertical offset set immediately.
+        // This clip is visible from t = 0, so a load-time set is safe here.
+        gsap.set([...w1, ...w2], { y: 26 });
+
+        function enterWords(words, base) {
+          words.forEach((word, i) => {
+            const t = base + STAGGER * i;
+            tl.fromTo(word, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out", immediateRender: false }, t);
+            tl.fromTo(word, { y: 26 }, { y: 0, duration: 0.65, ease: "power1.out", immediateRender: false }, t);
+          });
+        }
+
+        enterWords(w1, 0.067);
+        enterWords(w2, 4.03);
+
+        tl.to("#title-1", { opacity: 0, duration: 0.33, ease: "none" }, 3.65);
+        // Hard hide of title-2 once the site mockup covers it.
+        tl.set("#title-2", { opacity: 0 }, 6.6);
+
+        // "E agora, Chat GPT": one line, words enter with stagger 0.166 from 10.797; exit at 13.20.
+        const w3 = Array.from(document.querySelectorAll("#title-3 .w"));
+        gsap.set(w3, { y: 26 });
+        w3.forEach((word, i) => {
+          const t = 10.797 + 0.166 * i;
+          tl.fromTo(word, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out", immediateRender: false }, t);
+          tl.fromTo(word, { y: 26 }, { y: 0, duration: 0.65, ease: "power1.out", immediateRender: false }, t);
+        });
+        tl.to("#title-3", { opacity: 0, duration: 0.33, ease: "none" }, 13.2);
+
+        window.__timelines["titles-scene1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

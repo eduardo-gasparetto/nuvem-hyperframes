@@ -1,0 +1,51 @@
+<!doctype html>
+<!--
+  bg — sub-composition: blue radial gradient background (track 0 of index.html).
+  Runtime clones only the <template> contents; styles and scripts live inside it.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #root svg {
+          display: block;
+        }
+      </style>
+
+      <div id="root" data-composition-id="bg" data-width="1512" data-height="672">
+        <svg width="1512" height="672" viewBox="0 0 1512 672">
+          <defs>
+            <radialGradient
+              id="bg-grad"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="translate(918 -447) rotate(108.398) scale(1951.76 1744.69)"
+            >
+              <stop offset="0" stop-color="#0050C3" />
+              <stop offset="0.298077" stop-color="#00298F" />
+              <stop offset="0.653846" stop-color="#080558" />
+              <stop offset="1" stop-color="#010B23" />
+            </radialGradient>
+          </defs>
+          <rect width="1512" height="672" fill="url(#bg-grad)" />
+        </svg>
+      </div>
+
+      <script>
+        // Static layer: no tweens. Registered so the runtime can seek it with the host.
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines["bg"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

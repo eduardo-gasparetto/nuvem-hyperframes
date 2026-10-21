@@ -2,4 +2,4 @@
 # clones this commit into engine/, then reapplies the hack (apply-hack.mjs) and builds.
 # A normal update.mjs run rewrites `commit` after a successful pull + hack + build.
 repo=https://github.com/heygen-com/hyperframes.git
-commit=8c00ebad80c634f607e3a5283f8a0aa73e35f1dd
+commit=b7fa007bf3cfb03a62bbb5460009c7e628e3bb2d

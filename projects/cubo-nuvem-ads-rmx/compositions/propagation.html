@@ -1,0 +1,122 @@
+<!doctype html>
+<!--
+  propagation — sub-composition: isologo base outline (both sides, slow drift) and
+  expanding linear rings (track 1 of index.html). Runtime clones only the <template>.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #root svg {
+          display: block;
+        }
+      </style>
+
+      <div id="root" data-composition-id="propagation" data-width="1512" data-height="672">
+        <svg width="1512" height="672" viewBox="0 0 1512 672" style="overflow: hidden">
+          <defs>
+            <path id="isologo-path" d="M692.195 234.194H691.908C691.813 234.194 691.717 234.194 691.622 234.194C624.4 234.305 560.357 260.69 512.56 307.166C488.106 296.794 461.727 291.425 434.504 291.425C324.048 291.425 234.194 381.284 234.194 491.735C234.194 602.186 324.054 692.046 434.504 692.046C461.313 692.046 487.825 686.581 512.353 676.251C558.771 721.396 622.055 749.277 691.765 749.277C833.773 749.277 949.312 633.743 949.312 491.73C949.312 349.716 834.012 234.411 692.195 234.183V234.194ZM691.765 692.051C581.309 692.051 491.454 602.191 491.454 491.741H434.223C434.223 542.249 448.898 589.373 474.121 629.175C461.297 632.857 447.965 634.82 434.504 634.82C355.611 634.82 291.425 570.634 291.425 491.741C291.425 412.847 355.611 348.661 434.504 348.661C465.754 348.661 495.428 358.545 520.327 377.247C556.718 404.576 577.584 446.304 577.584 491.741H634.815C634.815 431.804 608.866 376.494 563.275 338.315C599.082 308.259 644.503 291.462 691.908 291.43C802.295 291.504 892.075 381.338 892.075 491.741C892.075 602.143 802.215 692.051 691.765 692.051Z" vector-effect="non-scaling-stroke" />
+          </defs>
+
+          <g id="left" data-layout-allow-overflow>
+            <g id="base-left" opacity="0.88">
+              <use
+                href="#isologo-path"
+                transform="translate(-1376.6 -379.1) scale(1.4522)"
+                fill="none"
+                stroke="#0050C3"
+                stroke-width="1.5"
+              />
+            </g>
+            <g id="rings-left"></g>
+          </g>
+
+          <g id="right" data-layout-allow-overflow>
+            <g id="base-right" opacity="0.88">
+              <use
+                href="#isologo-path"
+                transform="translate(2888.6 -379.1) scale(-1.4522 1.4522)"
+                fill="none"
+                stroke="#0050C3"
+                stroke-width="1.5"
+              />
+            </g>
+            <g id="rings-right"></g>
+          </g>
+        </svg>
+      </div>
+
+      <script>
+        const CX_LEFT = -372;
+        const CX_RIGHT = 1878;
+        const CY = 335;
+        const R_START = 374;
+        const R_END = 731;
+        const RINGS = 24;
+        const DURATION = 3.0667;
+        const FIRST_BIRTH = 1.043;
+        const INTERVAL = 0.992;
+        const SVG_NS = "http://www.w3.org/2000/svg";
+
+        const tl = gsap.timeline({ paused: true });
+
+        const sides = [
+          { groupId: "rings-left", cx: CX_LEFT },
+          { groupId: "rings-right", cx: CX_RIGHT },
+        ];
+
+        // Build rings (deterministic, before the timeline is created/registered).
+        const ringsBySide = sides.map(({ groupId, cx }) => {
+          const group = document.getElementById(groupId);
+          const list = [];
+          for (let i = 0; i < RINGS; i++) {
+            const c = document.createElementNS(SVG_NS, "circle");
+            c.setAttribute("cx", String(cx));
+            c.setAttribute("cy", String(CY));
+            c.setAttribute("r", String(R_START));
+            c.setAttribute("fill", "none");
+            c.setAttribute("stroke", "#0050C3");
+            c.setAttribute("stroke-width", "1.5");
+            c.setAttribute("opacity", "0");
+            group.appendChild(c);
+            list.push(c);
+          }
+          return list;
+        });
+
+        // Animate ring i on both sides identically. Linear (ease none), no immediate render.
+        for (let i = 0; i < RINGS; i++) {
+          const birth = FIRST_BIRTH + INTERVAL * i;
+          ringsBySide.forEach((list) => {
+            tl.fromTo(
+              list[i],
+              { attr: { r: R_START }, opacity: 0.88 },
+              {
+                attr: { r: R_END },
+                opacity: 0,
+                duration: DURATION,
+                ease: "none",
+                immediateRender: false,
+              },
+              birth,
+            );
+          });
+        }
+
+        // Slow linear drift of the isologo base outline only (rings do not drift).
+        tl.fromTo("#base-left", { x: -0.8 }, { x: -0.8 + 0.938 * 23, duration: 23, ease: "none" }, 0);
+        tl.fromTo("#base-right", { x: -2.6 }, { x: -2.6 - 1.036 * 23, duration: 23, ease: "none" }, 0);
+
+        window.__timelines["propagation"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

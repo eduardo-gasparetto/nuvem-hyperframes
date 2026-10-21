@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  gpt-scene1 — sub-composition: ChatGPT icon with avatar and its connector line (track 7 of
+  index.html). Not translated: the group appears in place. Pop-in and avatar emergence match
+  the other icons. No exit in this sub-composition.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #root svg {
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: block;
+        }
+        #root line {
+          stroke: #ffffff;
+          stroke-width: 3;
+          stroke-linecap: butt;
+          fill: none;
+          opacity: 0;
+        }
+        #root img {
+          position: absolute;
+          display: block;
+          transform-origin: 50% 50%;
+        }
+        #root .icon {
+          width: 126.7px;
+          height: 126.7px;
+        }
+        #root .avatar {
+          width: 65px;
+          height: 65px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 0;
+          box-shadow: none;
+        }
+      </style>
+
+      <div id="root" data-composition-id="gpt-scene1" data-width="1512" data-height="672">
+        <svg width="1512" height="672" viewBox="0 0 1512 672">
+          <line id="line-gpt" x1="1256" y1="336.4" x2="1256" y2="336.4" />
+        </svg>
+        <img id="gpt-icon" class="icon" src="assets/icons/gpt.svg" alt="" style="left: 1231.05px; top: 275.05px" />
+        <img id="gpt-avatar" class="avatar" src="assets/avatars/gpt.png" alt="" style="left: 1335.1px; top: 315.3px" />
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        const ICON_R = 126.7 / 2; // 63.35
+        const AV_R = 65 / 2; // 32.5
+        const icon = document.getElementById("gpt-icon");
+        const avatar = document.getElementById("gpt-avatar");
+
+        // Centres from the layout above.
+        const ic = [1231.05 + ICON_R, 275.05 + ICON_R];
+        const ac = [1335.1 + AV_R, 315.3 + AV_R];
+
+        // Rim start: point on the icon circle facing the avatar centre.
+        const dx = ac[0] - ic[0];
+        const dy = ac[1] - ic[1];
+        const len = Math.hypot(dx, dy);
+        const rimX = ic[0] + ICON_R * (dx / len);
+        const rimY = ic[1] + ICON_R * (dy / len);
+
+        // Offset from the avatar's final position to the rim start.
+        const sx = rimX - ac[0];
+        const sy = rimY - ac[1];
+
+        // Initial hidden state, set at load (this sub-composition is visible from t = 0).
+        gsap.set(icon, { scale: 0 });
+        gsap.set(avatar, { scale: 0, x: sx, y: sy });
+
+        // Icon pop.
+        tl.fromTo(icon, { scale: 0 }, { scale: 1, duration: 0.62, ease: "power2.out", immediateRender: false }, 14.155);
+
+        // Avatar emerges from the rim.
+        tl.fromTo(
+          avatar,
+          { scale: 0, x: sx, y: sy },
+          { scale: 1, x: 0, y: 0, duration: 0.725, ease: "power3.out", immediateRender: false },
+          14.155 + 0.23,
+        );
+
+        // Connector: grows from the icon towards the mockup edge; reveal at its start time.
+        const line = document.getElementById("line-gpt");
+        tl.fromTo(line, { opacity: 0 }, { opacity: 0.2, duration: 0.001, ease: "none", immediateRender: false }, 14.5);
+        tl.fromTo(
+          line,
+          { attr: { x2: 1256, y2: 336.4 } },
+          { attr: { x2: 1140, y2: 340.0 }, duration: 0.11, ease: "none", immediateRender: false },
+          14.5,
+        );
+
+        // Click at 16.955: icon and avatar grow and shift (the connector line is unchanged).
+        tl.fromTo(
+          icon,
+          { scale: 1, x: 0, y: 0 },
+          { scale: 1.441, x: -2.1, y: -0.1, duration: 0.77, ease: "power2.inOut", immediateRender: false },
+          16.955,
+        );
+        tl.fromTo(
+          avatar,
+          { scale: 1, x: 0, y: 0 },
+          { scale: 1.441, x: 20.2, y: 34.0, duration: 0.77, ease: "power2.inOut", immediateRender: false },
+          16.955,
+        );
+
+        window.__timelines["gpt-scene1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

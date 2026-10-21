@@ -40,8 +40,9 @@ nuvem-hyperframes/
 
 | Arquivo | Função |
 |---|---|
-| `apply-hack.mjs` | Codemod **idempotente por arquivo**. Patcheia `studioServer.ts` (multi-projeto + seletor), `fileWatcher.ts` (exclui `engine`/`hub`) e `inspector/build.mjs` (paths com espaço — ver abaixo). Por padrão de texto, não por nº de linha. Cada arquivo já patchado é pulado; se o upstream mudou demais, falha avisando qual arquivo. |
+| `apply-hack.mjs` | Codemod **idempotente por arquivo**. Patcheia `studioServer.ts` (multi-projeto + seletor), `core/src/projectFolders.ts` (exclui `engine`/`hub` do watcher) e `inspector/build.mjs` (paths com espaço — ver abaixo). Por padrão de texto, não por nº de linha. Cada arquivo já patchado é pulado; se o upstream mudou demais, falha avisando qual arquivo. |
 | `update.mjs` | Update sem conflito: `git reset --hard` → `git pull --ff-only` → reaplica → `bun install && bun run build`. |
+| `check-updates.mjs` | Manual, só avisa (não toca no `engine/`): compara versão com o npm `latest`, roda o `apply-hack` num clone descartável do upstream (via `HF_ENGINE_DIR`) e faz smoke test (check + snapshot + render 1080×1350) com `npx hyperframes@latest`. Sai com 0 = pode rodar `update.mjs`; 1 = não atualize. Não cobre o build do engine. |
 | `start.mjs` | Sobe o Studio buildado apontando pra `HF_WORKSPACE`. |
 | `HACK.md` | Este arquivo. |
 
@@ -56,9 +57,9 @@ nuvem-hyperframes/
    - `resolveProject` → `__hfResolveProject(id, __hfRoot, projectId, project)`
 4. Injeta um `<script>` no HTML servido (SPA fallback) com um **seletor de projetos** flutuante.
 
-## Como o patch muda o `fileWatcher.ts`
+## Como o patch muda o watcher (`core/src/projectFolders.ts`)
 
-Adiciona `"engine"` e `"hub"` a `WATCHER_EXCLUDED_DIRS`. Como essas pastas agora vivem **dentro**
+Adiciona `"engine"` e `"hub"` a `PREVIEW_IGNORED_DIRS` (até 0.8.158 era `WATCHER_EXCLUDED_DIRS` no `fileWatcher.ts`). Como essas pastas agora vivem **dentro**
 do workspace (que o watcher observa recursivamente), sem isso editar a fonte do engine dispararia
 reload do preview à toa. Os pesos-pesados (`node_modules`, `dist`, `.git`…) já são excluídos pelo
 upstream.
@@ -141,6 +142,6 @@ launchctl bootstrap gui/$UID_ ~/Library/LaunchAgents/com.nuvem.hyperframes-hub.p
 ## Failure mode (honesto)
 
 Se um update do upstream **renomear/reescrever** as linhas-alvo (`listProjects: () => [project]`,
-`WATCHER_EXCLUDED_DIRS = new Set([`, etc.), o `apply-hack.mjs` **falha com mensagem clara dizendo
+`PREVIEW_IGNORED_DIRS`, etc.), o `apply-hack.mjs` **falha com mensagem clara dizendo
 qual arquivo** em vez de aplicar errado. Aí é só abrir o arquivo citado, achar o novo equivalente, e
 ajustar os padrões no `apply-hack.mjs`. É o único momento de manutenção manual — raro, e sinalizado.

@@ -1,0 +1,125 @@
+<!doctype html>
+<!--
+  stat-scene — sub-composition: "7 em 10" statistic (big light-blue numbers with blur-in) and
+  the two-line caption "brasileiros já usam IA / na  jornada de compra" (track 9 of index.html).
+  Font families come from shared/fonts.css (linked by index.html).
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Plus Jakarta Sans';
+          font-style: normal;
+          font-weight: 400 600;
+          font-display: swap;
+          src: url('shared/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+
+        /* Block A: "7 em 10" */
+        #block-a {
+          position: absolute;
+          left: 0;
+          top: 83px;
+          width: 1512px;
+          height: 314px;
+          text-align: center;
+          white-space: nowrap;
+          color: #59a9ff;
+          letter-spacing: -13.0924px;
+          line-height: 1.2;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-feature-settings: "liga" 0;
+        }
+        #block-a .w {
+          display: inline-block;
+          opacity: 0;
+          filter: blur(48px);
+        }
+
+        /* Block B: two white lines */
+        #block-b {
+          position: absolute;
+          left: 0;
+          top: 384.2px;
+          width: 1512px;
+          text-align: center;
+          white-space: normal;
+          color: #ffffff;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          font-size: 66.652px;
+          letter-spacing: -0.6665px;
+          line-height: 1.15;
+          font-feature-settings: "liga" 0;
+        }
+        #block-b .line {
+          display: block;
+          white-space: pre;
+        }
+        #block-b .w {
+          display: inline-block;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="stat-scene" data-width="1512" data-height="672">
+        <div id="block-a">
+          <span class="w" style="font-size: 261.848px">7</span><span class="sp" style="font-size: 261.848px"> </span><span class="w" style="font-size: 136px">em</span><span class="sp" style="font-size: 130.924px; margin-right: 12px"> </span><span class="w" style="font-size: 261.848px">10</span>
+        </div>
+
+        <div id="block-b">
+          <div class="line"><span class="w">brasileiros</span> <span class="w">já</span> <span class="w">usam</span> <span class="w">IA</span></div>
+          <div class="line"><span class="w">na</span>  <span class="w">jornada</span> <span class="w">de</span> <span class="w">compra</span></div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+
+        // Block A: each number blurs in (opacity 0 -> 1, blur 48px -> 0).
+        const blockA = Array.from(document.querySelectorAll("#block-a .w"));
+        const numStarts = [19.415, 19.485, 19.545];
+        blockA.forEach((word, i) => {
+          const s = numStarts[i];
+          tl.fromTo(word, { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power1.out", immediateRender: false }, s);
+          tl.fromTo(
+            word,
+            { filter: "blur(48px)" },
+            { filter: "blur(0px)", duration: 0.9, ease: "power3.out", immediateRender: false },
+            s,
+          );
+        });
+
+        // Block B: word-by-word entrance, same tweens as the other titles.
+        const wordStarts = [
+          [19.675, 19.745, 19.805, 19.89], // line 1: brasileiros, já, usam, IA
+          [19.771, 19.833, 19.883, 19.995], // line 2: na, jornada, de, compra
+        ];
+        const lines = Array.from(document.querySelectorAll("#block-b .line"));
+        lines.forEach((line, li) => {
+          const words = Array.from(line.querySelectorAll(".w"));
+          gsap.set(words, { y: 26 });
+          words.forEach((word, wi) => {
+            const s = wordStarts[li][wi];
+            tl.fromTo(word, { opacity: 0 }, { opacity: 1, duration: 1.25, ease: "power1.out", immediateRender: false }, s);
+            tl.fromTo(word, { y: 26 }, { y: 0, duration: 0.65, ease: "power1.out", immediateRender: false }, s);
+          });
+        });
+
+        window.__timelines["stat-scene"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,748 @@
+{
+  "version": 1,
+  "generated_from": "docs/social-specs-research.md",
+  "specs": [
+    {
+      "id": "universal_9x16",
+      "platform": "all",
+      "placement": "Universal 9:16 box (worst case per side)",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "status": "internal",
+        "source": null
+      },
+      "safe_zone": {
+        "top_px": 269,
+        "bottom_px": 768,
+        "left_px": 96,
+        "right_px": 240,
+        "top_pct": 14,
+        "bottom_pct": 40,
+        "left_pct": 8.9,
+        "right_pct": 22.2,
+        "status": "internal",
+        "source": null,
+        "note": "Own decision: top 14% (Meta), bottom 40% (Meta Reels ads with labels), left 96 px (YouTube Shorts sides), right 240 px (TikTok action rail). Left is wider than the 6% in the research proposal because the Shorts side margin (96 px) exceeds 6% (65 px). Confirm right against the official TikTok overlay."
+      },
+      "video": null,
+      "carousel": null,
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": "Must contain every 9:16 placement's margins; enforced by specs.test.mjs."
+    },
+    {
+      "id": "meta_9x16",
+      "platform": "meta",
+      "placement": "Instagram/Facebook Stories, Reels, 9:16 feed video",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": {
+          "width": 1440,
+          "height": 2560
+        },
+        "status": "official",
+        "source": "Meta Ads Guide"
+      },
+      "safe_zone": {
+        "top_px": 269,
+        "bottom_px": 768,
+        "left_px": 65,
+        "right_px": 65,
+        "top_pct": 14,
+        "bottom_pct": 40,
+        "left_pct": 6,
+        "right_pct": 6,
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/980593475366490 (diagram: docs/sources/meta-safe-zone-diagram.png)",
+        "note": "Bottom is 35% by default and 40% in the right-hand 21% strip when Reels ads carry labels (official diagram, help/980593475366490). Stored bottom_px/pct = conservative 40% over the full width.",
+        "bottom_standard_pct": 35,
+        "bottom_standard_px": 672,
+        "notch": {
+          "side": "right",
+          "width_pct": 21,
+          "bottom_pct": 40,
+          "bottom_px": 768,
+          "width_px": 227,
+          "note": "Diagram reading: bottom margin is bottom_standard_pct everywhere except this right-hand strip, where it is bottom_pct (Reels ads with labels). Stored bottom_px/pct are the conservative 40% over the full width."
+        }
+      },
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": null,
+          "max": 900
+        },
+        "max_file_mb": null,
+        "status": "official",
+        "source": "Meta Ads Guide (Reels ad up to 15 min)"
+      },
+      "carousel": null,
+      "cover": {
+        "note": "Reels cover size 420x654 (official) is likely stale; open gap."
+      },
+      "source_urls": [
+        "https://pt-br.facebook.com/business/help/980593475366490"
+      ],
+      "verified_at": "2026-10-19",
+      "notes": "Meta ratio table (verified 2026-10-19) confirms 9:16 as the recommended ratio for Stories and Reels. Help page help/980593475366490 (2026-10-19) confirms the 9:16 guidance applies to Stories, Reels, Feed and Facebook in-stream reels, and that 9:16 video in Instagram Feed uses the same zone.",
+      "ratios": {
+        "recommended_image": "9:16",
+        "recommended_video": "9:16",
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/682655495435254",
+        "supported": [
+          "1.91:1",
+          "16:9",
+          "1:1",
+          "4:5",
+          "2:3",
+          "9:16"
+        ],
+        "note": "Instagram Stories/Reels and Facebook Stories/Reels recommend 9:16 for images and videos. Ads in Facebook Reels (ads placement) accept 1.91:1, 1:1 and 9:16."
+      }
+    },
+    {
+      "id": "fb_story_ad",
+      "platform": "meta",
+      "placement": "Facebook Stories ad",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": {
+          "width": 1440,
+          "height": 2560
+        },
+        "status": "official",
+        "source": "Meta Ads Guide"
+      },
+      "safe_zone": {
+        "top_px": 269,
+        "bottom_px": 384,
+        "left_px": 65,
+        "right_px": 65,
+        "top_pct": 14,
+        "bottom_pct": 20,
+        "left_pct": 6,
+        "right_pct": 6,
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/ads-guide/update/video/facebook-story",
+        "note": "Research doc lists 14% (~250 px) top and 20% (~340 px) bottom; px and % disagree. The larger value (%) is stored. Sides assumed from the Meta 9:16 rule (internal)."
+      },
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": 1,
+          "max": 120
+        },
+        "max_file_mb": null,
+        "status": "official",
+        "source": "Meta Ads Guide (FB Stories ad 1 s-3 min, cards of 15 s) | video-requirements chart says 1-120 s (Ads Guide said up to 3 min): https://www.facebook.com/business/m/one-sheeters/video-requirements"
+      },
+      "carousel": null,
+      "cover": null,
+      "source_urls": [
+        "https://pt-br.facebook.com/business/ads-guide/update/video/facebook-story"
+      ],
+      "verified_at": "2026-10-19",
+      "notes": " Duration stored as 120 s (conservative) after the video-requirements chart conflicted with the 3 min figure."
+    },
+    {
+      "id": "ig_story_ad",
+      "platform": "instagram",
+      "placement": "Instagram Stories ad",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "minimum": {
+          "width": 600,
+          "height": 1067
+        },
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/2222978001316177"
+      },
+      "safe_zone": {
+        "top_px": 269,
+        "bottom_px": 768,
+        "left_px": 65,
+        "right_px": 65,
+        "top_pct": 14,
+        "bottom_pct": 40,
+        "left_pct": 6,
+        "right_pct": 6,
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/980593475366490 (diagram: docs/sources/meta-safe-zone-diagram.png)",
+        "note": "Official diagram + text on help/980593475366490: 9:16 ads in Stories, Reels, Feed and Facebook in-stream reels share one zone (14% top, 6% sides, 35% bottom, 40% in the right-hand 21% strip with labels). Stored bottom is the conservative 40%.",
+        "bottom_standard_pct": 35,
+        "bottom_standard_px": 672,
+        "notch": {
+          "side": "right",
+          "width_pct": 21,
+          "bottom_pct": 40,
+          "bottom_px": 768,
+          "width_px": 227,
+          "note": "Diagram reading: bottom margin is bottom_standard_pct everywhere except this right-hand strip, where it is bottom_pct (Reels ads with labels). Stored bottom_px/pct are the conservative 40% over the full width."
+        }
+      },
+      "video": {
+        "container": "mp4",
+        "container_alt": "mov",
+        "video_codec": "h264",
+        "video_codec_alt": "vp8",
+        "audio_codec": "aac",
+        "audio_codec_alt": "vorbis",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": 1,
+          "max": 120
+        },
+        "max_file_mb": 4096,
+        "image_display_s": 5,
+        "image_max_mb": 30,
+        "image_types": [
+          "jpg",
+          "png"
+        ],
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/2222978001316177 | duration: https://www.facebook.com/business/m/one-sheeters/video-requirements"
+      },
+      "carousel": null,
+      "cover": null,
+      "source_urls": [
+        "https://pt-br.facebook.com/business/help/2222978001316177"
+      ],
+      "verified_at": "2026-10-19",
+      "notes": "Help page help/2222978001316177: all feed ratios (1.91:1 to 4:5) accepted, 9:16 recommended. DURATION CONFLICT between two official Meta pages: that help page says max 60 min, the video-requirements chart says 1-120 s. Stored 120 s (conservative, standard not law); the brief wins if it needs longer, warn the user. The page publishes no safe-zone numbers: use meta_9x16 (14% top / 40% bottom / 6% sides) until Meta states otherwise. Audio min 128 kbps assumed from the Meta-wide rule."
+    },
+    {
+      "id": "ig_reels_organic",
+      "platform": "instagram",
+      "placement": "Instagram Reels (organic upload)",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "minimum": {
+          "width": null,
+          "height": 720
+        },
+        "status": "official",
+        "source": "https://help.instagram.com/1038071743007909"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "fps_min": 30,
+        "duration_s": {
+          "min": 3,
+          "max": 180
+        },
+        "max_file_mb": null,
+        "accepted_ratios": {
+          "min": "9:16",
+          "max": "1.91:1"
+        },
+        "h264": {
+          "scan": "progressive",
+          "profile": "high",
+          "consecutive_b_frames": 2,
+          "gop": "closed, half the frame rate",
+          "entropy": "CABAC",
+          "chroma": "4:2:0"
+        },
+        "audio": {
+          "channels": [
+            "stereo",
+            "stereo+5.1"
+          ],
+          "sample_rate_hz": [
+            48000,
+            96000
+          ]
+        },
+        "status": "official",
+        "source": "https://help.instagram.com/1038071743007909 (duration 3 s-3 min: about.instagram.com, Sep 2026)"
+      },
+      "carousel": null,
+      "cover": {
+        "width": 420,
+        "height": 654,
+        "ratio": "1:1.55",
+        "formats": [
+          "png",
+          "jpg"
+        ],
+        "editable_after_upload": false,
+        "status": "official",
+        "source": "https://help.instagram.com/1038071743007909",
+        "note": "Official page still says 420x654 (confirmed 2026-10-19, not stale). Cover cannot be changed after upload. Profile grid shows a 3:4 crop, so keep title/face centred (see ig_grid_3x4)."
+      },
+      "source_urls": [
+        "https://help.instagram.com/1038071743007909"
+      ],
+      "verified_at": "2026-10-19",
+      "notes": "Safe zone: use meta_9x16. Minimum resolution is 720 px (Meta does not say which side); width null on purpose."
+    },
+    {
+      "id": "fb_reels_organic",
+      "platform": "facebook",
+      "placement": "Facebook Reels (organic, via Meta API doc)",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "minimum": {
+          "width": 540,
+          "height": 960
+        },
+        "status": "official",
+        "source": "https://developers.facebook.com/documentation/video-api/guides/reels-publishing"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "video_codec_alt": "h265",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "audio_sample_rate_hz": 48000,
+        "audio_channels": "stereo",
+        "fps_default": 30,
+        "fps_min": 24,
+        "fps_max": 60,
+        "duration_s": {
+          "min": 3,
+          "max": 90
+        },
+        "max_file_mb": null,
+        "accepted_ratios": {
+          "min": "9:16",
+          "max": "16:9"
+        },
+        "status": "official",
+        "source": "https://developers.facebook.com/documentation/video-api/guides/reels-publishing"
+      },
+      "carousel": null,
+      "cover": null,
+      "source_urls": [
+        "https://developers.facebook.com/documentation/video-api/guides/reels-publishing",
+        "https://about.fb.com/news/2025/06/making-it-easier-create-videos-facebook/"
+      ],
+      "verified_at": "2026-10-19",
+      "notes": "Values read by a subagent, not directly by the orchestrator. DURATION CONFLICT: API doc says 3-90 s; Meta announcement (2025-06-17) says Reels have no length or format restrictions. Stored 90 s (conservative); the brief wins if it needs longer, warn the user. No max file size and no cover size published. Safe zone: use meta_9x16. Ads on Facebook Reels: see meta_9x16 and docs/sources/meta-supported-aspect-ratios.md."
+    },
+    {
+      "id": "ig_feed_4x5",
+      "platform": "instagram",
+      "placement": "Instagram/Facebook feed 4:5 (also carousel)",
+      "canvas": {
+        "width": 1080,
+        "height": 1350,
+        "ratio": "4:5",
+        "recommended": {
+          "width": 1440,
+          "height": 1800
+        },
+        "status": "official",
+        "source": "Meta Ads Guide"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": 1,
+          "max": 120
+        },
+        "max_file_mb": null,
+        "status": "official",
+        "source": "Meta video-requirements chart (Instagram Feed 1-120 s, source ratio 1.91:1 to 4:5): https://www.facebook.com/business/m/one-sheeters/video-requirements"
+      },
+      "carousel": {
+        "same_ratio_required": true,
+        "ad": {
+          "min_items": 2,
+          "max_items": 10,
+          "status": "official",
+          "source": "Meta Ads Guide"
+        },
+        "organic": {
+          "max_items": 20,
+          "status": "press",
+          "source": "Instagram announcement, Aug 2024 (not verified)"
+        }
+      },
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-19",
+      "notes": "Meta asks to keep text/logo clear of the edges but gives no numbers; safe zone left null on purpose (internal rule pending). 4:5 loses ~34 px per side in the 3:4 grid thumbnail. Meta (help/980593475366490): for non-9:16 Instagram Feed ads (1:1, 4:5) keep the bottom and side edges clear; the top is not mentioned. No numbers.",
+      "ratios": {
+        "recommended_image": "4:5",
+        "recommended_video": "9:16",
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/682655495435254",
+        "supported": [
+          "1.91:1",
+          "16:9",
+          "1:1",
+          "4:5",
+          "2:3",
+          "9:16"
+        ],
+        "note": "Instagram Feed: 4:5 recommended for images, 9:16 for videos. Facebook Feed: 4:5 recommended for images and videos (desktop feed shows video as 1:1, black bars)."
+      }
+    },
+    {
+      "id": "ig_feed_1x1",
+      "platform": "instagram",
+      "placement": "Instagram/Facebook feed 1:1 (carousel ads)",
+      "canvas": {
+        "width": 1080,
+        "height": 1080,
+        "ratio": "1:1",
+        "recommended": null,
+        "status": "official",
+        "source": "Meta Ads Guide"
+      },
+      "safe_zone": null,
+      "video": null,
+      "carousel": {
+        "same_ratio_required": true,
+        "ad": {
+          "min_items": 2,
+          "max_items": 10,
+          "status": "official",
+          "source": "Meta Ads Guide"
+        },
+        "organic": null
+      },
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-19",
+      "notes": "No safe-zone numbers published. Same guidance as ig_feed_4x5: bottom and side edges clear, no numbers.",
+      "ratios": {
+        "recommended_image": null,
+        "recommended_video": null,
+        "status": "official",
+        "source": "https://pt-br.facebook.com/business/help/682655495435254",
+        "supported": [
+          "1:1"
+        ],
+        "note": "1:1 is supported but not the recommended ratio in any Instagram/Facebook placement of the Meta table."
+      }
+    },
+    {
+      "id": "ig_grid_3x4",
+      "platform": "instagram",
+      "placement": "Instagram profile grid / 3:4 post",
+      "canvas": {
+        "width": 1080,
+        "height": 1440,
+        "ratio": "3:4",
+        "recommended": null,
+        "status": "press",
+        "source": "Press coverage of the Jan 2025 grid change"
+      },
+      "safe_zone": null,
+      "video": null,
+      "carousel": null,
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": "Feed acceptance of 3:4 uploads not verified (open gap: test account)."
+    },
+    {
+      "id": "tiktok_9x16",
+      "platform": "tiktok",
+      "placement": "TikTok (organic and ads)",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "status": "official",
+        "source": "TikTok video advertising guide: 1080x1920 or higher"
+      },
+      "safe_zone": {
+        "top_px": 160,
+        "bottom_px": 440,
+        "left_px": 80,
+        "right_px": 240,
+        "top_pct": 8.3,
+        "bottom_pct": 22.9,
+        "left_pct": 7.4,
+        "right_pct": 22.2,
+        "status": "third-party",
+        "source": "https://ads.tiktok.com/resources/help/article/tiktok-auction-in-feed-ads",
+        "note": "TikTok publishes only downloadable overlays, no numbers; right action rail ~240 px measured. Open gap."
+      },
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": null,
+          "max": 600
+        },
+        "max_file_mb": 500,
+        "status": "official",
+        "source": "TikTok ads help (ad up to 10 min, <= 500 MB)"
+      },
+      "carousel": {
+        "same_ratio_required": true,
+        "ad": {
+          "min_items": 2,
+          "max_items": 20,
+          "status": "official",
+          "source": "TikTok ads help"
+        },
+        "organic": null
+      },
+      "cover": null,
+      "source_urls": [
+        "https://ads.tiktok.com/help/article/commercial-music-library"
+      ],
+      "verified_at": "2026-10-15",
+      "notes": "Music: use the Commercial Music Library for any commercial use (see rules.md audio_license)."
+    },
+    {
+      "id": "yt_shorts",
+      "platform": "youtube",
+      "placement": "YouTube Shorts",
+      "canvas": {
+        "width": 1080,
+        "height": 1920,
+        "ratio": "9:16",
+        "recommended": null,
+        "status": "official",
+        "source": "YouTube help"
+      },
+      "safe_zone": {
+        "top_px": 120,
+        "bottom_px": 300,
+        "left_px": 96,
+        "right_px": 96,
+        "top_pct": 6.3,
+        "bottom_pct": 15.6,
+        "left_pct": 8.9,
+        "right_pct": 8.9,
+        "status": "third-party",
+        "source": "https://support.google.com/google-ads/answer/13547298",
+        "note": "Google offers an official template without px; numbers are third-party."
+      },
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac-lc",
+        "audio_min_kbps": 384,
+        "fps_default": 30,
+        "duration_s": {
+          "min": null,
+          "max": 180
+        },
+        "max_file_mb": null,
+        "status": "official",
+        "source": "support.google.com/youtube/answer/1722171"
+      },
+      "carousel": null,
+      "cover": {
+        "width": 2160,
+        "height": 3840,
+        "max_mb": 50,
+        "status": "official",
+        "source": "support.google.com/youtube/answer/72431"
+      },
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": ""
+    },
+    {
+      "id": "yt_16x9",
+      "platform": "youtube",
+      "placement": "YouTube video",
+      "canvas": {
+        "width": 1920,
+        "height": 1080,
+        "ratio": "16:9",
+        "recommended": null,
+        "status": "official",
+        "source": "YouTube help"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac-lc",
+        "audio_min_kbps": 384,
+        "fps_default": 30,
+        "duration_s": {
+          "min": null,
+          "max": null
+        },
+        "max_file_mb": null,
+        "status": "official",
+        "source": "support.google.com/youtube/answer/1722171 (1080p 8 Mbps at 24-30 fps, 12 Mbps at 48-60)"
+      },
+      "carousel": null,
+      "cover": {
+        "width": 3840,
+        "height": 2160,
+        "max_mb": 50,
+        "status": "official",
+        "source": "support.google.com/youtube/answer/72431"
+      },
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": ""
+    },
+    {
+      "id": "linkedin_4x5",
+      "platform": "linkedin",
+      "placement": "LinkedIn feed",
+      "canvas": {
+        "width": 1080,
+        "height": 1350,
+        "ratio": "4:5",
+        "recommended": null,
+        "status": "official",
+        "source": "LinkedIn help"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "fps_max_exclusive": 30,
+        "duration_s": {
+          "min": 3,
+          "max": 1800
+        },
+        "max_file_mb": 500,
+        "status": "official",
+        "source": "LinkedIn help (3 s-30 min, 75 KB-500 MB, fps below 30)"
+      },
+      "carousel": {
+        "same_ratio_required": true,
+        "ratio": "1:1",
+        "size": "1080x1080",
+        "ad": {
+          "min_items": 2,
+          "max_items": 10,
+          "status": "official",
+          "source": "LinkedIn help"
+        },
+        "organic": null
+      },
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": "Document posts: PDF up to 300 pages / 100 MB (snippet only, not verified); animations render static."
+    },
+    {
+      "id": "pinterest_2x3",
+      "platform": "pinterest",
+      "placement": "Pinterest pin",
+      "canvas": {
+        "width": 1000,
+        "height": 1500,
+        "ratio": "2:3",
+        "recommended": null,
+        "status": "official",
+        "source": "Pinterest help"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "duration_s": {
+          "min": 4,
+          "max": 900
+        },
+        "max_file_mb": 2048,
+        "status": "official",
+        "source": "Pinterest help (4 s-15 min, 2 GB)"
+      },
+      "carousel": null,
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": ""
+    },
+    {
+      "id": "x_1x1",
+      "platform": "x",
+      "placement": "X post",
+      "canvas": {
+        "width": 1080,
+        "height": 1080,
+        "ratio": "1:1",
+        "recommended": null,
+        "status": "official",
+        "source": "X help"
+      },
+      "safe_zone": null,
+      "video": {
+        "container": "mp4",
+        "video_codec": "h264",
+        "audio_codec": "aac",
+        "audio_min_kbps": 128,
+        "fps_default": 30,
+        "fps_max": 60,
+        "duration_s": {
+          "min": null,
+          "max": 140
+        },
+        "max_file_mb": 1024,
+        "status": "official",
+        "source": "X help (up to 2:20, <= 1 GB, fps cap 60)"
+      },
+      "carousel": {
+        "same_ratio_required": true,
+        "ad": {
+          "min_items": 2,
+          "max_items": 6,
+          "status": "official",
+          "source": "X help"
+        },
+        "organic": null
+      },
+      "cover": null,
+      "source_urls": [],
+      "verified_at": "2026-10-15",
+      "notes": ""
+    }
+  ]
+}

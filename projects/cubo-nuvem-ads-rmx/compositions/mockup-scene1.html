@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+  mockup-scene1 — sub-composition: glass site-mockup window with a scrolling store page
+  (track 6 of index.html). Entrance rises from below the canvas; the page drifts and jumps.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #mockup {
+          position: absolute;
+          left: 372px;
+          top: 76px;
+          width: 767.9px;
+          height: 553px;
+          box-sizing: border-box;
+          border: 1.4px solid rgba(89, 169, 255, 0.1);
+          border-radius: 35px;
+          background: rgba(0, 80, 195, 0.15);
+          backdrop-filter: blur(21px);
+          -webkit-backdrop-filter: blur(21px);
+          box-shadow:
+            0 9.1px 8.4px rgba(0, 21, 70, 0.03),
+            inset 0 1.4px 0 rgba(89, 169, 255, 0.15);
+        }
+        /* Screen at canvas (400, 88): 26.6px from the padding box origin (border 1.4px). */
+        #screen {
+          position: absolute;
+          left: 26.6px;
+          top: 26.6px;
+          width: 711.9px;
+          height: 498.4px;
+          border-radius: 14px;
+          overflow: hidden;
+          background: #d9d9d9;
+        }
+        #screen .drift,
+        #screen .jump {
+          width: 711.9px;
+          height: 3757.6px;
+        }
+        #screen img {
+          position: absolute;
+          top: -16px;
+          display: block;
+          width: 711.9px;
+          height: 3757.6px;
+          object-fit: fill;
+        }
+      </style>
+
+      <div id="root" data-composition-id="mockup-scene1" data-width="1512" data-height="672">
+        <div class="float" style="position: absolute; left: 0; top: 0; width: 1512px; height: 672px">
+        <div id="mockup">
+          <div id="screen">
+            <div class="drift">
+              <div class="jump">
+                <img src="assets/site/ipanema-page.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        const mockup = document.getElementById("mockup");
+        const drift = mockup.querySelector(".drift");
+        const jump = mockup.querySelector(".jump");
+
+        // Initial state: mockup fully below the canvas (top 60 + y 650 = 710 > 672).
+        gsap.set(mockup, { y: 650 });
+
+        // a) Entrance: translateY only.
+        tl.fromTo(mockup, { y: 650 }, { y: 0, duration: 0.94, ease: "power2.out", immediateRender: false }, 5.64);
+
+        // b) Continuous linear drift of the page (22 px/s).
+        tl.fromTo(drift, { y: 0 }, { y: -77.7, duration: 3.53, ease: "none", immediateRender: false }, 6.47);
+
+        // c) Fast scroll between sections.
+        tl.fromTo(jump, { y: 0 }, { y: -478, duration: 1.03, ease: "power2.inOut", immediateRender: false }, 7.22);
+
+        // d) Re-entry: the page is hidden (layer off-canvas) while it is reset, then scrolls again.
+        tl.set(drift, { y: 0 }, 11.2);
+        tl.set(jump, { y: 0 }, 11.2);
+        tl.fromTo(drift, { y: 0 }, { y: -264, duration: 11, ease: "none", immediateRender: false }, 12.0); // 24 px/s
+        tl.fromTo(jump, { y: 0 }, { y: -448, duration: 0.94, ease: "power2.inOut", immediateRender: false }, 13.74);
+
+        // e) Second scroll jump of the page.
+        tl.fromTo(jump, { y: -448 }, { y: -976, duration: 1.04, ease: "power2.inOut", immediateRender: false }, 17.65);
+
+        // f) Mockup float: slow upward drift (wrapper .float, so the mockup visuals are unchanged).
+        const floatEl = document.querySelector(".float");
+        tl.fromTo(floatEl, { y: 0 }, { y: -4.6, duration: 2.55, ease: "none", immediateRender: false }, 7.6);
+        tl.set(floatEl, { y: 0 }, 11.2);
+        tl.fromTo(floatEl, { y: 0 }, { y: -8.6, duration: 4.08, ease: "none", immediateRender: false }, 14.6);
+
+        window.__timelines["mockup-scene1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
