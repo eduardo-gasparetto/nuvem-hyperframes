@@ -1,0 +1,17 @@
+{
+  "prompt": "Animate the attached photo <IMAGE_REF_1> as a live workshop: very slow steady camera push-in, the speaker gesturing naturally while talking, audience members shifting slightly, the screen glowing softly. Keep the logos and screen content stable and unchanged. Do not add any new text, people or objects. No cuts. Shot on a plausible tripod-mounted real camera and lens, with believable natural or studio lighting. Real material and skin texture, slight natural noise, no render look, no CGI or \"AI\" look. No audio: the video must be completely silent, with no dialogue, no music and no sound effects.",
+  "model": "gemini-omni-1.1-flash",
+  "resolution": "720p",
+  "aspect_ratio": "9:16",
+  "duration_s": 4,
+  "reference_images": [
+    "/Users/eduardogasparetto/Claude Projects/nuvem-hyperframes/projects/workshop-vip-stories/assets/img/s2-crop.jpg"
+  ],
+  "audio_requested_off": true,
+  "cost_usd": 0.4,
+  "cost_is_estimate": true,
+  "price_is_placeholder": false,
+  "seed": null,
+  "session_id": "9da42336-0486-4bbb-a97c-8686fe5a5f68",
+  "date": "2026-10-22T08:57:21"
+}

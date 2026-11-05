@@ -1,0 +1,159 @@
+<!doctype html>
+<!--
+  workshop-vip-stories — HyperFrames
+  Canvas 1080x1920, 30 fps, 29.3 s. Three Instagram-story scenes + narration + music.
+  Root: persistent gradient background (static), three scene sub-compositions, audio mix.
+  Spec: reference/build-spec.md. Motion: shared/motion.js (NuvemMotion presets only).
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+
+    <link rel="stylesheet" href="shared/fonts.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="shared/motion.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #010b23;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+      #bg {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+      #bg svg {
+        display: block;
+      }
+      .clip {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="29.3"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- persistent background (Figma radial gradient), never animates -->
+      <div id="bg">
+        <svg width="1080" height="1920" viewBox="0 0 1080 1920" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1080" height="1920" fill="url(#bg-grad)" />
+          <defs>
+            <radialGradient
+              id="bg-grad"
+              cx="0"
+              cy="0"
+              r="10"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="matrix(175.95 206.22 -29.542 251.77 -241.87 -234.67)"
+            >
+              <stop offset="0" stop-color="rgb(0,80,195)" />
+              <stop offset="0.29808" stop-color="rgb(0,41,143)" />
+              <stop offset="0.47596" stop-color="rgb(4,23,115)" />
+              <stop offset="0.65385" stop-color="rgb(8,5,88)" />
+              <stop offset="0.82692" stop-color="rgb(4,8,61)" />
+              <stop offset="1" stop-color="rgb(1,11,35)" />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <!-- scene 1: visible 0.00-6.20, extended to 6.90 so the photo fall (6.00-6.88) can finish -->
+      <div
+        id="scene-1"
+        class="clip"
+        data-composition-id="scene-1"
+        data-composition-src="compositions/scene-1.html"
+        data-start="0"
+        data-duration="6.9"
+        data-track-index="1"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- scene 2: visible 6.00-10.10, extended to 10.70 so the photo fall (9.80-10.68) can finish -->
+      <div
+        id="scene-2"
+        class="clip"
+        data-composition-id="scene-2"
+        data-composition-src="compositions/scene-2.html"
+        data-start="6"
+        data-duration="4.7"
+        data-track-index="2"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- scene 3: 9.80-29.30 -->
+      <div
+        id="scene-3"
+        class="clip"
+        data-composition-id="scene-3"
+        data-composition-src="compositions/scene-3.html"
+        data-start="9.8"
+        data-duration="19.5"
+        data-track-index="3"
+        data-width="1080"
+        data-height="1920"
+      ></div>
+
+      <!-- narration -->
+      <audio id="vo-s1" src="assets/audio/vo-s1.wav" data-start="0.45" data-duration="5.4" data-track-index="4" data-volume="0.72"></audio>
+      <audio id="vo-s2" src="assets/audio/vo-s2.wav" data-start="6.55" data-duration="2.76" data-track-index="5" data-volume="0.69"></audio>
+      <audio id="vo-s3" src="assets/audio/vo-s3.wav" data-start="10.3" data-duration="18.2" data-track-index="6" data-volume="1"></audio>
+
+      <!-- music bed: bgm-a (0-9.8) crossfades into bgm-b (8.5-28.5). Lane values are absolute levels. -->
+      <audio
+        id="bgm-a"
+        src="assets/audio/bgm-a.wav"
+        data-start="0"
+        data-duration="9.8"
+        data-track-index="7"
+        data-volume="0.22"
+        data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.8,&quot;v&quot;:0.22},{&quot;t&quot;:8.5,&quot;v&quot;:0.22},{&quot;t&quot;:9.8,&quot;v&quot;:0}]}]}"
+      ></audio>
+      <audio
+        id="bgm-b"
+        src="assets/audio/bgm-b.wav"
+        data-start="8.5"
+        data-duration="20"
+        data-track-index="8"
+        data-volume="0.17"
+        data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:1.3,&quot;v&quot;:0.17},{&quot;t&quot;:19,&quot;v&quot;:0.17},{&quot;t&quot;:20,&quot;v&quot;:0}]}]}"
+      ></audio>
+    </div>
+    <script>
+      // Root has no tweens of its own: scene motion lives in the sub-compositions.
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

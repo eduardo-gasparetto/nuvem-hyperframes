@@ -1,0 +1,224 @@
+<!doctype html>
+<!--
+  scene-3 — Workshop Grupo VIP (Figma "Instagram story - 8").
+  Host starts at 9.80: local time = absolute - 9.80. Voice vo-s3 starts at abs 10.30 = local 0.50.
+  Block starts follow the whisper transcript of vo-s3 (transcripts/vo-s3.json).
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Plus Jakarta Sans';
+          font-style: normal;
+          font-weight: 400 600;
+          font-display: swap;
+          src: url('shared/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          color: #ffffff;
+        }
+        /* Juliana: rise wrapper > drift wrapper > Figma bbox wrapper > rotated image box */
+        #s3-jul-rise,
+        #s3-veil-rise {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+        }
+        #s3-jul-drift {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+        }
+        #s3-jul-wrap {
+          position: absolute;
+          left: -90px;
+          top: 97px;
+          width: 1906.434px;
+          height: 1881.275px;
+        }
+        #s3-jul-img-box {
+          position: absolute;
+          left: 100.2935px;
+          top: 102.2775px;
+          width: 1705.847px;
+          height: 1676.72px;
+          transform: rotate(-7.35deg);
+          transform-origin: 50% 50%;
+        }
+        #s3-jul-img-box img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        #s3-veil-wrap {
+          position: absolute;
+          left: -537.78px;
+          top: 351.11px;
+          width: 2111.972px;
+          height: 1934.873px;
+        }
+        #s3-veil-box {
+          position: absolute;
+          left: 187.4860px;
+          top: 240.4255px;
+          width: 1737px;
+          height: 1454.022px;
+          transform: rotate(18.73deg);
+          transform-origin: 50% 50%;
+          background: linear-gradient(180deg, rgba(6, 8, 69, 0) 3.846%, rgba(7, 6, 78, 0.5) 29.327%, #080558 77.093%);
+        }
+        #s3-logo {
+          position: absolute;
+          left: 81px;
+          top: 483px;
+          width: 278.512px;
+          height: 80px;
+          opacity: 0;
+        }
+        .s3-t {
+          position: absolute;
+          font-weight: 600;
+          color: #ffffff;
+        }
+        .s3-t .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #s3-kicker {
+          left: 81px;
+          top: 651px;
+          font-size: 27.467px;
+          letter-spacing: 8.24px;
+          text-transform: uppercase;
+          line-height: 1.234;
+          white-space: nowrap;
+        }
+        #s3-h1 {
+          left: 76px;
+          top: 696px;
+          font-size: 91px;
+          letter-spacing: -0.2275px;
+          line-height: 1.234;
+          white-space: nowrap;
+        }
+        #s3-title {
+          left: 81px;
+          top: 823px;
+          width: 671px;
+          font-size: 46.8px;
+          letter-spacing: -0.117px;
+          line-height: 1.234;
+        }
+        #s3-desc {
+          left: 81px;
+          top: 989px;
+          width: 584px;
+          font-size: 36.8px;
+          font-weight: 400;
+          letter-spacing: -0.092px;
+          line-height: 1.264;
+        }
+        #s3-pill {
+          position: absolute;
+          left: 79px;
+          top: 1304px;
+          width: 557px;
+          height: 100px;
+          border-radius: 100px;
+          background: #0050c3;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 46.8px;
+          letter-spacing: -0.117px;
+          white-space: nowrap;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene-3" data-width="1080" data-height="1920">
+        <div id="s3-jul-rise">
+          <div id="s3-jul-drift">
+            <div id="s3-jul-wrap">
+              <div id="s3-jul-img-box"><img src="assets/img/juliana.png" alt="" /></div>
+            </div>
+          </div>
+        </div>
+        <div id="s3-veil-rise">
+          <div id="s3-veil-wrap">
+            <div id="s3-veil-box"></div>
+          </div>
+        </div>
+
+        <img id="s3-logo" src="assets/img/logo-enp.svg" alt="" />
+        <div id="s3-kicker" class="s3-t">Workshop</div>
+        <div id="s3-h1" class="s3-t">Grupo VIP</div>
+        <div id="s3-title" class="s3-t">Como transformar clientes em compradores recorrentes</div>
+        <div id="s3-desc" class="s3-t">Juliana Marques, da loja Siiis Kids, mostra na prática as melhores estratégias para usar em grupos no WhatsApp e fazer clientes voltarem a comprar.</div>
+        <div id="s3-pill">22 de Outubro às 15h</div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        NuvemMotion.setCanvas(1920);
+
+        function splitWords(el) {
+          const words = el.textContent.trim().split(/\s+/);
+          el.textContent = "";
+          words.forEach((w, i) => {
+            if (i) el.appendChild(document.createTextNode(" "));
+            const s = document.createElement("span");
+            s.className = "w";
+            s.textContent = w;
+            el.appendChild(s);
+          });
+          return Array.from(el.querySelectorAll(".w"));
+        }
+
+        const VO = 0.5; // vo-s3 start (local)
+
+        // Layers: veil (back depth) starts first, Juliana (front) 0.10 s later (P6).
+        NuvemMotion.riseIn(tl, "#s3-veil-rise", 0, { depth: "back" });
+        NuvemMotion.riseIn(tl, "#s3-jul-rise", 0.1, { depth: "front" });
+        // Ambient: slow linear drift on Juliana (2 px/s up) while the scene holds; ends exactly on the Figma rest position.
+        NuvemMotion.drift(tl, "#s3-jul-drift", 0, { speed: -2, duration: 19.5, from: 39 });
+
+        // Logo EnP at scene start.
+        NuvemMotion.wordsIn(tl, [document.getElementById("s3-logo")], 0.25);
+
+        // Pill <-> "Dia 22 de outubro às 15 horas" (transcript: Dia 0.26).
+        NuvemMotion.wordsIn(tl, [document.getElementById("s3-pill")], VO + 0.26);
+
+        // WORKSHOP <-> "workshop" (3.28); Grupo VIP <-> "Grupo" (4.06), "VIP" (4.54).
+        const kicker = splitWords(document.getElementById("s3-kicker"));
+        NuvemMotion.wordsIn(tl, kicker, VO + 3.28);
+        const h1 = splitWords(document.getElementById("s3-h1"));
+        NuvemMotion.wordsIn(tl, h1, [VO + 4.06, VO + 4.54]);
+
+        // Title <-> "como transformar clientes..." (como 5.05).
+        const title = splitWords(document.getElementById("s3-title"));
+        NuvemMotion.wordsIn(tl, title, VO + 5.05);
+
+        // Description <-> "A Juliana Marques..." (A 8.01).
+        const desc = splitWords(document.getElementById("s3-desc"));
+        NuvemMotion.wordsIn(tl, desc, VO + 8.01);
+
+        window.__timelines["scene-3"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

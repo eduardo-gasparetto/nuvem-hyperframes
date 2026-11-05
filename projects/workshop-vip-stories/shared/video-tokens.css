@@ -1,0 +1,134 @@
+/*
+ * Nuvem video tokens — color, type and surfaces measured in the Nuvemshop ads.
+ * Source: projects/cubo-nuvem-ads-rmx (Cubo_Nuvem Ads.mp4, 1512x672). Rules and rationale: visual-identity.md.
+ * Interface tokens (site/app) live in shared/ui/nuvem-tokens.css — do not mix the two.
+ *
+ * Sizes are written as source px x --nuvem-video-unit. A project at another size of the same 2.25:1 ratio only sets
+ * --nuvem-video-h (canvas height) ON :root, after this file. Example: 3024x1344 -> :root { --nuvem-video-h: 1344px; }
+ * (setting it on a nested element has no effect: --nuvem-video-unit is resolved on :root).
+ * Other ratios (9:16, 1:1...) are not decided yet: see visual-identity.md, Open questions.
+ * Fonts: load shared/fonts.css first.
+ */
+
+:root {
+  --nuvem-video-h: 672px;
+  --nuvem-video-unit: calc(var(--nuvem-video-h) / 672);
+
+  /* ── Color ─────────────────────────────────────────────── */
+  --nuvem-video-blue: #0050C3;       /* = UI --nuvem-nimbus-blue: rings, glass tint, gradient core */
+  --nuvem-video-highlight: #59A9FF;  /* = UI --nuvem-lib-highlight-blue: big numbers, glass hairlines */
+  --nuvem-video-canvas: #010B23;     /* = UI --nuvem-lib-galaxy-blue: base colour under the gradient */
+  --nuvem-video-text: #FFFFFF;
+  /* Background: radial gradient #0050C3 0 / #00298F 0.298 / #080558 0.654 / #010B23 1 — exact SVG in visual-identity.md */
+
+  /* ── Type ──────────────────────────────────────────────── */
+  --nuvem-video-sans: 'Plus Jakarta Sans', sans-serif;  /* weight 600 everywhere in video */
+  --nuvem-video-serif: 'Ivy Presto Display', serif;     /* light (300) italic, emphasis only */
+
+  --nuvem-video-headline: calc(92 * var(--nuvem-video-unit));       /* sans line */
+  --nuvem-video-headline-serif: calc(97 * var(--nuvem-video-unit)); /* serif line = 1.054 x sans */
+  --nuvem-video-headline-leading: 1.28;
+  --nuvem-video-headline-tracking: calc(-1.4 * var(--nuvem-video-unit));       /* stacked two-line titles */
+  --nuvem-video-headline-serif-tracking: calc(-1.5 * var(--nuvem-video-unit));
+  --nuvem-video-headline-tracking-1line: calc(-0.92 * var(--nuvem-video-unit)); /* one-line titles (Figma -1 %) */
+  --nuvem-video-headline-serif-tracking-1line: calc(-0.924 * var(--nuvem-video-unit));
+
+  --nuvem-video-stat: calc(261.848 * var(--nuvem-video-unit));      /* big figure */
+  --nuvem-video-stat-joiner: calc(136 * var(--nuvem-video-unit));   /* small word between figures ("em") */
+  --nuvem-video-stat-leading: 1.2;
+  --nuvem-video-stat-tracking: -0.05em;
+
+  --nuvem-video-caption: calc(66.652 * var(--nuvem-video-unit));
+  --nuvem-video-caption-leading: 1.15;
+  --nuvem-video-caption-tracking: -0.01em;
+
+  --nuvem-video-tag: calc(25 * var(--nuvem-video-unit));
+  --nuvem-video-tag-tracking: -0.01em;
+
+  /* ── Lines and rings ───────────────────────────────────── */
+  --nuvem-video-line-width: calc(3 * var(--nuvem-video-unit));
+  --nuvem-video-line-opacity: 0.2;     /* white connector lines */
+  --nuvem-video-ring-width: calc(1.5 * var(--nuvem-video-unit));
+  --nuvem-video-ring-opacity: 0.88;    /* blue isologo outline and rings */
+
+  /* ── Objects ───────────────────────────────────────────── */
+  --nuvem-video-icon: calc(115.9 * var(--nuvem-video-unit));   /* brand icon circle */
+  --nuvem-video-avatar: calc(74.8 * var(--nuvem-video-unit));  /* satellite photo = 0.645 x icon */
+  --nuvem-video-panel-radius: calc(35 * var(--nuvem-video-unit));
+  --nuvem-video-screen-radius: calc(14 * var(--nuvem-video-unit));
+  --nuvem-video-screen-inset: calc(26.6 * var(--nuvem-video-unit));
+}
+
+/* ── Type roles ──────────────────────────────────────────── */
+.nuvem-video-headline {
+  font-family: var(--nuvem-video-sans);
+  font-weight: 600;
+  font-size: var(--nuvem-video-headline);
+  line-height: var(--nuvem-video-headline-leading);
+  letter-spacing: var(--nuvem-video-headline-tracking);
+  color: var(--nuvem-video-text);
+}
+.nuvem-video-headline-serif {
+  font-family: var(--nuvem-video-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: var(--nuvem-video-headline-serif);
+  line-height: var(--nuvem-video-headline-leading);
+  letter-spacing: var(--nuvem-video-headline-serif-tracking);
+  color: var(--nuvem-video-text);
+}
+.nuvem-video-stat {
+  font-family: var(--nuvem-video-sans);
+  font-weight: 600;
+  font-size: var(--nuvem-video-stat);
+  line-height: var(--nuvem-video-stat-leading);
+  letter-spacing: var(--nuvem-video-stat-tracking);
+  color: var(--nuvem-video-highlight);
+  font-feature-settings: "liga" 0;
+}
+.nuvem-video-caption {
+  font-family: var(--nuvem-video-sans);
+  font-weight: 600;
+  font-size: var(--nuvem-video-caption);
+  line-height: var(--nuvem-video-caption-leading);
+  letter-spacing: var(--nuvem-video-caption-tracking);
+  color: var(--nuvem-video-text);
+  font-feature-settings: "liga" 0;
+}
+
+/* ── Glass surfaces ──────────────────────────────────────── */
+/* Panel: the site/app window. */
+.nuvem-video-glass-panel {
+  box-sizing: border-box;
+  border: calc(1.4 * var(--nuvem-video-unit)) solid rgba(89, 169, 255, 0.1);
+  border-radius: var(--nuvem-video-panel-radius);
+  background: rgba(0, 80, 195, 0.15);
+  backdrop-filter: blur(calc(21 * var(--nuvem-video-unit)));
+  -webkit-backdrop-filter: blur(calc(21 * var(--nuvem-video-unit)));
+  box-shadow:
+    0 calc(9.1 * var(--nuvem-video-unit)) calc(8.4 * var(--nuvem-video-unit)) rgba(0, 21, 70, 0.03),
+    inset 0 calc(1.4 * var(--nuvem-video-unit)) 0 rgba(89, 169, 255, 0.15);
+}
+/* Tag: the persistent top-left pill. */
+.nuvem-video-glass-tag {
+  box-sizing: border-box;
+  height: calc(75 * var(--nuvem-video-unit));
+  border: calc(2 * var(--nuvem-video-unit)) solid rgba(89, 169, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(0, 80, 195, 0.2);
+  backdrop-filter: blur(calc(40 * var(--nuvem-video-unit)));
+  -webkit-backdrop-filter: blur(calc(40 * var(--nuvem-video-unit)));
+  box-shadow:
+    0 calc(8 * var(--nuvem-video-unit)) calc(13 * var(--nuvem-video-unit)) rgba(0, 21, 70, 0.08),
+    inset 0 calc(2 * var(--nuvem-video-unit)) 0 rgba(89, 169, 255, 0.15);
+}
+.nuvem-video-tag-label {
+  font-family: var(--nuvem-video-sans);
+  font-weight: 600;
+  font-size: var(--nuvem-video-tag);
+  letter-spacing: var(--nuvem-video-tag-tracking);
+  line-height: normal;
+  color: var(--nuvem-video-text);
+  white-space: nowrap;
+  font-feature-settings: "liga" 0, "lnum" 1, "pnum" 1;
+}

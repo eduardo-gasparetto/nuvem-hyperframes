@@ -1,0 +1,107 @@
+<!doctype html>
+<!--
+  scene-2 — "Então agora chegou sua vez!" (Figma "Instagram story - 10").
+  Host starts at 6.00: local time = absolute - 6.00. Voice vo-s2 starts at abs 6.55 = local 0.55.
+-->
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face {
+          font-family: 'Plus Jakarta Sans';
+          font-style: normal;
+          font-weight: 400 600;
+          font-display: swap;
+          src: url('shared/fonts/plus-jakarta-sans-latin.woff2') format('woff2');
+        }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #s2-photo {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          opacity: 0.3;
+        }
+        #s2-video {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1080px;
+          height: 1920px;
+          object-fit: cover;
+        }
+        #s2-text {
+          position: absolute;
+          left: 87px;
+          top: 840px;
+          width: 906px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-weight: 600;
+          font-size: 117px;
+          letter-spacing: -0.2925px;
+          line-height: 1.234;
+          color: #ffffff;
+          text-align: center;
+        }
+        #s2-text .w {
+          display: inline-block;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="scene-2" data-width="1080" data-height="1920">
+        <div id="s2-photo">
+          <video
+            id="s2-video"
+            class="clip"
+            src="assets/gemini/s2-hold.mp4"
+            data-start="0"
+            data-duration="4.7"
+            data-track-index="0"
+            muted
+            playsinline
+          ></video>
+        </div>
+        <div id="s2-text">Então agora chegou sua vez!</div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        NuvemMotion.setCanvas(1920);
+
+        const textEl = document.getElementById("s2-text");
+        const words = textEl.textContent.trim().split(/\s+/);
+        textEl.textContent = "";
+        words.forEach((w, i) => {
+          if (i) textEl.appendChild(document.createTextNode(" "));
+          const s = document.createElement("span");
+          s.className = "w";
+          s.textContent = w;
+          textEl.appendChild(s);
+        });
+        const ws = Array.from(textEl.querySelectorAll(".w"));
+
+        // Photo layer rises from below over the falling scene 1 (P6 front), starting at abs 6.00.
+        NuvemMotion.riseIn(tl, "#s2-photo", 0);
+
+        // vo-s2 starts at local 0.55. Transcript: Então 0.23, agora 0.49, chegou 0.90, (a) 1.44, sua 1.47, vez 1.79.
+        const VO = 0.55;
+        NuvemMotion.wordsIn(tl, ws, [0.23, 0.49, 0.9, 1.47, 1.79].map((t) => VO + t));
+
+        // Exit: text fades after the voice ends (abs 9.31), photo falls at abs 9.80 (local 3.80) while scene 3 enters.
+        NuvemMotion.textOut(tl, "#s2-text", 3.45);
+        NuvemMotion.sceneFall(tl, "#s2-photo", 3.8);
+
+        window.__timelines["scene-2"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

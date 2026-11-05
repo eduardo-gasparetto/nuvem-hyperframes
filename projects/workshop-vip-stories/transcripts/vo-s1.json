@@ -1,0 +1,80 @@
+[
+  {
+    "text": "Você",
+    "start": 0.2,
+    "end": 0.44,
+    "id": "w0"
+  },
+  {
+    "text": "esteve",
+    "start": 0.44,
+    "end": 0.96,
+    "id": "w1"
+  },
+  {
+    "text": "no",
+    "start": 0.96,
+    "end": 1.12,
+    "id": "w2"
+  },
+  {
+    "text": "Dítio",
+    "start": 1.13,
+    "end": 1.64,
+    "id": "w3"
+  },
+  {
+    "text": "C",
+    "start": 1.64,
+    "end": 1.71,
+    "id": "w4"
+  },
+  {
+    "text": "Summit",
+    "start": 1.81,
+    "end": 2.25,
+    "id": "w5"
+  },
+  {
+    "text": "e",
+    "start": 2.25,
+    "end": 2.35,
+    "id": "w6"
+  },
+  {
+    "text": "não",
+    "start": 2.35,
+    "end": 2.58,
+    "id": "w7"
+  },
+  {
+    "text": "conseguiu",
+    "start": 2.58,
+    "end": 3.12,
+    "id": "w8"
+  },
+  {
+    "text": "participar",
+    "start": 3.12,
+    "end": 3.66,
+    "id": "w9"
+  },
+  {
+    "text": "dos",
+    "start": 3.66,
+    "end": 3.76,
+    "id": "w10"
+  },
+  {
+    "text": "workshops",
+    "start": 3.76,
+    "end": 4.3,
+    "id": "w11"
+  },
+  {
+    "text": "presenciais?",
+    "start": 4.37,
+    "end": 5.22,
+    "id": "w12"
+  }
+]

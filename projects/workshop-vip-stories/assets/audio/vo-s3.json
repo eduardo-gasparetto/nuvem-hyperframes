@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "file": "/Users/eduardogasparetto/Claude Projects/nuvem-hyperframes/projects/workshop-vip-stories/assets/audio/vo-s3.wav",
+  "sidecar": "/Users/eduardogasparetto/Claude Projects/nuvem-hyperframes/projects/workshop-vip-stories/assets/audio/vo-s3.json",
+  "text": "Dia 22 de outubro, às 15 horas. Workshop Grupo VIP: como transformar clientes em compradores recorrentes. A Juliana Marques, da loja Siiis Kids, mostra na prática as melhores estratégias para usar grupos no WhatsApp e fazer clientes voltarem a comprar.",
+  "prompt": "Dia 22 de outubro, às 15 horas. Workshop Grupo VIP: como transformar clientes em compradores recorrentes. A Juliana Marques, da loja Siiis Kids, mostra na prática as melhores estratégias para usar grupos no WhatsApp e fazer clientes voltarem a comprar.",
+  "seed": null,
+  "voice": "Kore",
+  "style": "Warm, confident and friendly Brazilian Portuguese voice, natural conversational pace, clear diction, smiling tone, like a Nuvemshop host inviting merchants to an event. Not shouting, not robotic.",
+  "lang": "pt-BR",
+  "model": "gemini-3.8-flash-tts",
+  "format": "wav",
+  "mode": "direct",
+  "session_id": "9da42336-0486-4bbb-a97c-8686fe5a5f68",
+  "estimated_cost_usd": 0.0048,
+  "estimate_note": "rough placeholder from character count; real cost comes from response tokens",
+  "duration_s": 18.2,
+  "audio_tokens": 455,
+  "cost_usd": 0.0041,
+  "cost_source": "response tokens",
+  "date": "2026-10-22T08:57:06"
+}
